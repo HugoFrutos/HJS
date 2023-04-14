@@ -14,15 +14,17 @@ if(isset($_SESSION['usuario']))
 
 
 ?>
+<!--
     <footer class="footer">
 		<span class="text-right">
 		Copyright <a target="_blank" style="color:black">Ventas</a>
 		</span>
         
 	</footer>
+-->
 
 </div>
-<!-- END main -->
+
 
 <script src="../assets/js/modernizr.min.js"></script>
 <script src="../assets/js/jquery.min.js"></script>

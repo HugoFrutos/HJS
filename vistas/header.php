@@ -12,10 +12,10 @@ if(isset($_SESSION['usuario']))
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>Ventas</title>
+		<title>Salud Dental</title>
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="../assets/images/favicon.ico">
+		<link rel="shortcut icon" href="../assets/images/logo.png">
 
 		<!-- Bootstrap CSS -->
         <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -54,36 +54,10 @@ if(isset($_SESSION['usuario']))
         <nav class="navbar-custom">
 
                     <ul class="list-inline float-right mb-0">
-						
-						<li class="list-inline-item dropdown notif">
-                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <i class="fa fa-fw fa-question-circle"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-arrow-success dropdown-lg">
-                                <!-- item-->
-                                <div class="dropdown-item noti-title">
-                                    <h5><small>Ayuda y Soporte</small></h5>
-                                </div>
-
-                                <!-- item-->
-                                <a target="_blank" href="stock.php" class="dropdown-item notify-item">                                    
-                                    <p class="notify-details ml-0">
-                                        <b></b>
-                                    </p>
-                                </a>
-<!--Cada vez que un producto tenga un stock menor a 10 unidades, aparecera un mensaje de advertencia--->
-                               
-
-                            </div>
-                        </li>
-						
-                        
-                        
-					
 
                         <li class="list-inline-item dropdown notif">
                             <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="../assets/images/avatars/admin.png" alt="Profile image" class="avatar-rounded">
+                                <img src="../assets/images/avatars/Usuario.png" alt="Profile image" class="avatar-rounded">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                                 <!-- item-->
@@ -138,23 +112,23 @@ if(isset($_SESSION['usuario']))
 
                     
                     <li class="submenu">
-                        <a href="productos.php"><i class="fa fa-fw fa-bars"></i><span> Pacientes </span> </a>
+                        <a href="productos.php"><i class="fa fa-users"></i><span> Pacientes </span> </a>
                     </li>
 
                     <li class="submenu">
-                        <a href="proveedores.php"><i class="fa fa-fw fa-bars"></i><span> Tratamientos </span> </a>
+                        <a href="proveedores.php"><i class="fa fa-plus-square"></i><span> Tratamientos </span> </a>
                     </li>
 
                     <li class="submenu">
-                        <a href="categorias.php"><i class="fa fa-fw fa-bars"></i><span> Ingresos </span> </a>
+                        <a href="categorias.php"><i class="fa fa-usd"></i><span> Ingresos </span> </a>
                     </li>
 
                     <li class="submenu">
-                        <a href="gastos.php"><i class="fa fa-fw fa-bars"></i><span> Gastos </span> </a>
+                        <a href="gastos.php"><i class="fa fa-shopping-bag"></i><span> Gastos </span> </a>
                     </li>
 
                     <li class="submenu">
-                        <a href="informes.php"><i class="fa fa-fw fa-bars"></i><span> Informes </span> </a>
+                        <a href="informes.php"><i class="fa fa-book"></i><span> Informes </span> </a>
                     </li>
             </ul>
 

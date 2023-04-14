@@ -251,7 +251,7 @@ a {
   z-index: 999; }
 
 .headerbar .headerbar-left {
-    background: #4980b5;
+    background: #18345E;
     float: left;
     text-align: center;
     height: 50px;
@@ -267,7 +267,7 @@ a {
 }
 	  
 .navbar-custom {
-  background-color: #4980b5 ;
+  background-color: #18345E ;
   border-radius: 0;
   margin-bottom: 0;
   padding: 0 10px;
