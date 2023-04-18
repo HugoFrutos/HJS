@@ -19,8 +19,7 @@
     <link rel="stylesheet" type="text/css" href="assets/alertifyjs/css/alertify.css">
     <link rel="stylesheet" type="text/css" href="assets/alertifyjs/css/themes/default.css">
     <script type="text/javascript" src="assets/alertifyjs/alertify.js"></script>
-    
-</head>
+    </head>
     
 <body>
   <div class="container">

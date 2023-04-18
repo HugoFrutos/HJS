@@ -7,7 +7,7 @@ class Usuario{
 			$conexion = $c->conectar();
 			$password = mysqli_real_escape_string($conexion,sha1(md5($datos[1])));
 			$usuario = mysqli_real_escape_string($conexion,$datos[0]);
-			$sql = "select * from usuarios where usuario='$usuario' and clave='$password'";
+			$sql = "select * from usuarios where username='$usuario' and password='$password'";
 			$result = mysqli_query($conexion,$sql);
 
 			if(mysqli_num_rows($result) > 0)

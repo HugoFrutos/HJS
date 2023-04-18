@@ -1,8 +1,8 @@
 <?php
-    require "../../clases/Reporte.php";
+    require "../../clases/Paciente.php";
     require "../../clases/Conexion.php";
-    $obj = new Reporte();
-    $result = $obj->productos_01();
+    $obj = new Paciente();
+    $result = $obj->mostrar();
 
     if (!$result)
     {

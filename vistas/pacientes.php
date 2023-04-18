@@ -23,17 +23,17 @@ if(isset($_SESSION['usuario']))
         </button>
       </div>
       <div class="modal-body">
-       <form id="frmproducto">
+       <form id="frmpaciente">
         <div class="row">
            
             <label>Nombre (*)</label>
             <input type="text" class="form-control" id="txtnombre" name="txtnombre">
             <label>Apellido (*)</label>
-            <input type="text" class="form-control" id="txtprecioc" name="txtprecioc">
+            <input type="text" class="form-control" id="txtapellido" name="txtapellido">
             <label>Número de cédula (*)</label>
-            <input type="number" class="form-control" id="txtpreciov" name="txtpreciov">
+            <input type="number" class="form-control" id="txtcedula" name="txtcedula">
             <label>Número de teléfono (*)</label>
-            <input type="text" class="form-control" id="txtstock" name="txtstock">
+            <input type="text" class="form-control" id="txttelefono" name="txttelefono">
             <label>Tipo (*)</label><br>
             <input type="text" class="form-control" id="txttipo" name="txttipo">
            
@@ -54,23 +54,23 @@ if(isset($_SESSION['usuario']))
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Editar Paciente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 <div class="modal-body">
-       <form id="frmproductoe">
+       <form id="frmpacientee">
         <div class="row">
            
             <label>Nombre (*)</label>
             <input type="text" class="form-control" id="txtnombree" name="txtnombree">
             <label>Apellido (*)</label>
-            <input type="number" class="form-control" id="txtprecioce" name="txtprecioce">
+            <input type="text" class="form-control" id="txtapellidoe" name="txtapellidoe">
             <label>Número de cédula (*)</label>
-            <input type="number" class="form-control" id="txtpreciove" name="txtpreciove">
+            <input type="number" class="form-control" id="txtcedulae" name="txtcedulae">
             <label>Número de teléfono (*)</label>
-            <input type="number" class="form-control" id="txtstocke" name="txtstocke">
+            <input type="text" class="form-control" id="txttelefonoe" name="txttelefonoe">
             <label>Tipo (*)</label>
             <input type="number" class="form-control" id="txttipoe" name="txttipoe">            
             </form>
@@ -110,22 +110,22 @@ if(isset($_SESSION['usuario']))
                        <!-- Button trigger modal -->
                        
                         <div class="col-lg-12">
-                        <table  id="myTable" class="table">
-                            <thead>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Nombre</td>
-                                    <td>Apellido</td>
-                                    <td>Nro Cédula</td>
-                                    <td>Teléfono</td>
-                                    <td>Tipo</td>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                            </tbody>
-                        </table>
+                            <table  id="myTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Nro Cédula</td>
+                                        <td>Nombre</td>
+                                        <td>Apellido</td>
+                                        <td>Teléfono</td>
+                                        <td>Tipo</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
                         </div>
                         
                     </div>
@@ -152,6 +152,7 @@ else {
 
 <script>
 $(document).ready(function(){
+    /*
     $('#txtproveedor').select2({
         dropdownParent: $("#exampleModal .modal-content")
     });
@@ -163,11 +164,11 @@ $(document).ready(function(){
     });
     $('#txtcategoriae').select2({
         dropdownParent: $("#exampleModal2 .modal-content")
-    });
+    });*/
     
     var table = $('#myTable').DataTable({
         "ajax":{
-            "url":"../procesos/productos/mostrar.php",
+            "url":"../procesos/pacientes/mostrar.php",
             "type":"GET"
             //"crossDomain": "true",
             //"dataType": "json",
@@ -175,30 +176,29 @@ $(document).ready(function(){
         },
         "columns":[
             {
-                "data":"id_producto"
+                "data":"idPaciente"
             },
             {
-                "data":"nombre"
+                "data":"nroCedula"
             },
-            {
-                
-                "data":"precio_compra"
-            },
-            {
-                
-                "data":"precio_venta"
+            {  
+                "data":"nombrePaciente"
             },
             {
                 
-                "data":"stock"
+                "data":"apellidoPaciente"
             },
-            {
-                
-                "data":"id_proveedor"
+            {           
+                "data":"nroTelefonoPaciente"
+            },
+            {              
+                "data":"tiposPaciente_idTipoPaciente"
             },  
+
+            
             {
                 sTitle: "Editar",
-                mDataProp: "id_producto",
+                mDataProp: "idPaciente",
                 sWidth: '7%',
                 orderable: false,
                 render: function(data) {
@@ -223,47 +223,44 @@ $(document).on('click', '.accionesTabla', function() {
         case "Traer":
                     $.ajax({
                         method : "GET",
-                        url : "../procesos/productos/traer.php",
-                        data:'id_producto='+id
+                        url : "../procesos/pacientes/traer.php",
+                        data:'idPaciente='+id
                     }).done(function(msg) {
                         var dato=JSON.parse(msg);
                         
-				        $('#txtnombree').val(dato['nombre']);
-                        $('#txtprecioce').val(dato['precio_compra']);
-                        $('#txtpreciove').val(dato['precio_venta']);
-                        $('#txtstocke').val(dato['stock']);
-                        $('#txtproveedore').val(dato['id_proveedor']);
-                        $('#txtcategoriae').val(dato['id_categoria']);
+				        $('#txtnombree').val(dato['nombrePaciente']);
+                        $('#txtapellidoe').val(dato['apellidoPaciente']);
+                        $('#txtcedulae').val(dato['nroCedula']);
+                        $('#txttelefonoe').val(dato['nroTelefonoPaciente']);
+                        $('#txttipoe').val(dato['tiposPaciente_idTipoPaciente']);
                         
                         
                         
                         $('#btneditar').unbind().click(function(){
-                            vacios = validarFormVacio('frmproductoe');
+                            vacios = validarFormVacio('frmpacientee');
                             
                             
                             if(vacios <= 0)
                                 {
-                            noma = $("#txtnombree").val();
-                            pc = $("#txtprecioce").val();
-                            pv = $("#txtpreciove").val();
-                            sto = $("#txtstocke").val();
-                            prove = $("#txtproveedore").val();
-                            cate = $("#txtcategoriae").val();
+                            nombrePaciente = $("#txtnombree").val();
+                            apellidoPaciente = $("#txtapellidoe").val();
+                            nroCedula = $("#txtcedulae").val();
+                            nroTelefonoPaciente = $("#txttelefonoe").val();
+                            tiposPaciente_idTipoPaciente  = $("#txttipoe").val();
                              oka = {
-						                "txtnombree" : noma , "id_producto" : id,
-                                        "txtprecioce" : pc, "txtpreciove" : pv,
-                                        "txtstocke" : sto, "txtproveedore" : prove,
-                                        "txtcategoriae" : cate,
+						                "txtnombree" : nombrePaciente , "idPaciente" : id,
+                                        "txtapellidoe" : apellidoPaciente, "txtcedulae" : nroCedula,
+                                        "txttelefonoe" : nroTelefonoPaciente, "txttipoe" : tiposPaciente_idTipoPaciente,
                                 };
                             //alert(oka);
                             //alert(JSON.stringify(oka));
                             $.ajax({
                                 method : "POST",
                                 //contentType: 'application/json; charset=utf-8',
-                                url : "../procesos/productos/editar.php",
+                                url : "../procesos/pacientes/editar.php",
                                 data : oka
                                 }).done(function(msg) {
-                                alertify.success("Producto Editado Correctamente!");
+                                alertify.success("Paciente Editado Correctamente!");
                                 table.ajax.reload();
                                 });                               
                                     
@@ -275,68 +272,6 @@ $(document).on('click', '.accionesTabla', function() {
                         });
                     });
             break;
-        case "Eliminar":
-            
-            alertify.confirm('Producto', '¿Esta seguro que desea eliminar este producto?', function()
-                {
-                        $.ajax({
-                                type:"POST",
-                                url : "../procesos/productos/eliminar.php",
-                                data : "id="+id
-                            }).done(function(msg) {
-                                alertify.success("Producto Eliminado Correctamente");
-                                table.ajax.reload();
-                            });
-                }
-                , function(){
-                
-                });
-
-
-
-        
-                    break;
-        case "Añadir":
-                        $('#btnañadir').unbind().click(function(){
-                            vacios = validarFormVacio('frmproductoa');
-                            
-                            
-                            if(vacios <= 0)
-                                {
-                            noma = $("#txtstocka").val();
-                             oka = {
-						                "txtstock" : noma , "id_producto" : id
-                                };
-                            //alert(oka);
-                            //alert(JSON.stringify(oka));
-                            $.ajax({
-                                method : "POST",
-                                //contentType: 'application/json; charset=utf-8',
-                                url : "../procesos/productos/stock.php",
-                                data : oka
-                                }).done(function(msg) {
-                                if(msg == 1)
-                                    {
-                                alertify.success("Stock Agregado Correctamente!");
-                                table.ajax.reload();  
-                                    }
-                                else if(msg == "n")
-                                    {
-                                alertify.error("Ingrese un numero valido");                                        
-                                    }
-                                else{
-                                     alertify.error("No se pudo añadir");
-                                }
-
-                                });                               
-                                    
-                                }
-                            else{
-                                alertify.error("Complete los datos");
-                            }
-
-                        });
-            break;
         default:
             alert("No existe el valor");
             break;
@@ -346,20 +281,20 @@ $(document).on('click', '.accionesTabla', function() {
     
     
     $('#btnregistrar').click(function(){
-        vacios = validarFormVacio('frmproducto');
+        vacios = validarFormVacio('frmpaciente');
         if(vacios <= 0 )
             {
-            datos=$('#frmproducto').serialize();
+            datos=$('#frmpaciente').serialize();
             $.ajax({
                type:'post',
-                url:'../procesos/productos/registrar.php',
+                url:'../procesos/pacientes/registrar.php',
                 data:datos,
                 success:function(r)
                 {
                     
                     if(r==1)
                         {
-                            alertify.success("Producto Registrado Correcamente");
+                            alertify.success("Paciente Registrado Correcamente");
                             table.ajax.reload();
                         }
                     else if(r==0)
