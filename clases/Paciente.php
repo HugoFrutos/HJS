@@ -8,11 +8,9 @@ class Paciente{
             $nombrePaciente = $c->test_input($datos[1]);
             $apellidoPaciente = $c->test_input($datos[2]);
             $nroTelefonoPaciente = $c->test_input($datos[3]);
-            $tiposPaciente_idTipoPaciente = $c->test_input($datos[4]);
 			$sql = "INSERT INTO pacientes(nroCedula,nombrePaciente,apellidoPaciente,
-            nroTelefonoPaciente,tiposPaciente_idTipoPaciente) 
-            values('$nroCedula','$nombrePaciente','$apellidoPaciente','$nroTelefonoPaciente',
-            '$tiposPaciente_idTipoPaciente')";
+            nroTelefonoPaciente) 
+            values('$nroCedula','$nombrePaciente','$apellidoPaciente','$nroTelefonoPaciente')";
 			$result = mysqli_query($conexion,$sql);
             return $result;
         }
@@ -26,11 +24,9 @@ class Paciente{
             $nombrePaciente = $c->test_input($datos[2]);
             $apellidoPaciente = $c->test_input($datos[3]);
             $nroTelefonoPaciente = $c->test_input($datos[4]);
-            $tiposPaciente_idTipoPaciente = $c->test_input($datos[5]);
-			$sql = "update pacientes set nroCedula = '$nroCedula', nombrePaciente = '$nombrePaciente',
+			$sql = "UPDATE pacientes set nroCedula = '$nroCedula', nombrePaciente = '$nombrePaciente',
                      apellidoPaciente = '$apellidoPaciente',
-                     nroTelefonoPaciente = '$nroTelefonoPaciente',
-                     tiposPaciente_idTipoPaciente = '$tiposPaciente_idTipoPaciente' where idPaciente=$id";
+                     nroTelefonoPaciente = '$nroTelefonoPaciente' where idPaciente=$id";
 			$result = mysqli_query($conexion,$sql);
             return $result;
         }
@@ -47,8 +43,7 @@ class Paciente{
             $c = new Conexion();
 			$conexion = $c->conectar();
 			$sql = "SELECT idPaciente, nroCedula, nombrePaciente, apellidoPaciente,
-            nroTelefonoPaciente from pacientes INNER JOIN  tipospaciente 
-            where tiposPaciente_idTipoPaciente = idTipoPaciente" ;
+            nroTelefonoPaciente from pacientes" ;
             $result = mysqli_query($conexion,$sql);
             return $result; 
     }
@@ -65,7 +60,6 @@ class Paciente{
                "nombrePaciente" =>html_entity_decode($ver[2]),
                "apellidoPaciente" =>html_entity_decode($ver[3]),
                "nroTelefonoPaciente" =>html_entity_decode($ver[4]),
-               "tiposPaciente_idTipoPaciente" =>html_entity_decode($ver[5]),
              );
             return $datos;
     }

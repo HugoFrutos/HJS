@@ -34,8 +34,6 @@ if(isset($_SESSION['usuario']))
             <input type="number" class="form-control" id="txtcedula" name="txtcedula">
             <label>Número de teléfono (*)</label>
             <input type="text" class="form-control" id="txttelefono" name="txttelefono">
-            <label>Tipo (*)</label><br>
-            <input type="text" class="form-control" id="txttipo" name="txttipo">
            
             </form>
         </div>
@@ -70,14 +68,12 @@ if(isset($_SESSION['usuario']))
             <label>Número de cédula (*)</label>
             <input type="number" class="form-control" id="txtcedulae" name="txtcedulae">
             <label>Número de teléfono (*)</label>
-            <input type="text" class="form-control" id="txttelefonoe" name="txttelefonoe">
-            <label>Tipo (*)</label>
-            <input type="number" class="form-control" id="txttipoe" name="txttipoe">            
+            <input type="text" class="form-control" id="txttelefonoe" name="txttelefonoe">           
             </form>
         </div>
         </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         <button type="button" id="btneditar" class="btn btn-primary">Guardar</button>
       </div>
     </div>
@@ -118,7 +114,6 @@ if(isset($_SESSION['usuario']))
                                         <td>Nombre</td>
                                         <td>Apellido</td>
                                         <td>Teléfono</td>
-                                        <td>Tipo</td>
                                         <td></td>
                                     </tr>
                                 </thead>
@@ -152,21 +147,11 @@ else {
 
 <script>
 $(document).ready(function(){
-    /*
-    $('#txtproveedor').select2({
-        dropdownParent: $("#exampleModal .modal-content")
-    });
-    $('#txtcategoria').select2({
-        dropdownParent: $("#exampleModal .modal-content")
-    });
-    $('#txtproveedore').select2({
-        dropdownParent: $("#exampleModal2 .modal-content")
-    });
-    $('#txtcategoriae').select2({
-        dropdownParent: $("#exampleModal2 .modal-content")
-    });*/
-    
+
     var table = $('#myTable').DataTable({
+
+        
+    
         "ajax":{
             "url":"../procesos/pacientes/mostrar.php",
             "type":"GET"
@@ -174,6 +159,7 @@ $(document).ready(function(){
             //"dataType": "json",
             //"dataSrc":""
         },
+        
         "columns":[
             {
                 "data":"idPaciente"
@@ -191,9 +177,7 @@ $(document).ready(function(){
             {           
                 "data":"nroTelefonoPaciente"
             },
-            {              
-                "data":"tiposPaciente_idTipoPaciente"
-            },  
+ 
 
             
             {
@@ -232,7 +216,6 @@ $(document).on('click', '.accionesTabla', function() {
                         $('#txtapellidoe').val(dato['apellidoPaciente']);
                         $('#txtcedulae').val(dato['nroCedula']);
                         $('#txttelefonoe').val(dato['nroTelefonoPaciente']);
-                        $('#txttipoe').val(dato['tiposPaciente_idTipoPaciente']);
                         
                         
                         
@@ -246,11 +229,10 @@ $(document).on('click', '.accionesTabla', function() {
                             apellidoPaciente = $("#txtapellidoe").val();
                             nroCedula = $("#txtcedulae").val();
                             nroTelefonoPaciente = $("#txttelefonoe").val();
-                            tiposPaciente_idTipoPaciente  = $("#txttipoe").val();
-                             oka = {
-						                "txtnombree" : nombrePaciente , "idPaciente" : id,
+                            oka = {
+                                "txtnombree" : nombrePaciente , "idPaciente" : id,
                                         "txtapellidoe" : apellidoPaciente, "txtcedulae" : nroCedula,
-                                        "txttelefonoe" : nroTelefonoPaciente, "txttipoe" : tiposPaciente_idTipoPaciente,
+                                        "txttelefonoe" : nroTelefonoPaciente,
                                 };
                             //alert(oka);
                             //alert(JSON.stringify(oka));
@@ -260,7 +242,7 @@ $(document).on('click', '.accionesTabla', function() {
                                 url : "../procesos/pacientes/editar.php",
                                 data : oka
                                 }).done(function(msg) {
-                                alertify.success("Paciente Editado Correctamente!");
+                                alertify.success("Paciente editado correctamente");
                                 table.ajax.reload();
                                 });                               
                                     
@@ -294,7 +276,7 @@ $(document).on('click', '.accionesTabla', function() {
                     
                     if(r==1)
                         {
-                            alertify.success("Paciente Registrado Correcamente");
+                            alertify.success("Paciente registrado correcamente");
                             table.ajax.reload();
                         }
                     else if(r==0)

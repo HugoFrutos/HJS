@@ -77,7 +77,7 @@
                 {
                     if(r==1)
                         {
-                            window.location = "vistas/inicio.php";
+                            window.location = "vistas/pacientes.php";
                         }
                     else if(r==0){
                             alertify.error("Error al ingresar los datos");

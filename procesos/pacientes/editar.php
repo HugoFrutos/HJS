@@ -6,8 +6,7 @@ $txtcedula = $_POST['txtcedulae'];
 $txtnombre = $_POST['txtnombree'];
 $txtapellido = $_POST['txtapellidoe'];
 $txttelefono = $_POST['txttelefonoe'];
-$txttipo = $_POST['txttipoe'];
-$datos = array($id,$txtcedula,$txtnombre,$txtapellido,$txttelefono,$txttipo);
+$datos = array($id,$txtcedula,$txtnombre,$txtapellido,$txttelefono);
 $obj = new Paciente();
 echo $obj->edit($datos);
 ?>

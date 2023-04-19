@@ -5,8 +5,7 @@ $txtcedula = $_POST['txtcedula'];
 $txtnombre = $_POST['txtnombre'];
 $txtapellido = $_POST['txtapellido'];
 $txttelefono = $_POST['txttelefono'];
-$txttipo = $_POST['txttipo'];
-$datos = array($txtcedula,$txtnombre,$txtapellido,$txttelefono,$txttipo);
+$datos = array($txtcedula,$txtnombre,$txtapellido,$txttelefono);
 $obj = new Paciente();
 echo $obj->save($datos);
 ?>

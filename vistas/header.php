@@ -37,6 +37,8 @@ if(isset($_SESSION['usuario']))
         <link rel="stylesheet" type="text/css" href="../assets/responsive.dataTables.min.css">
         <!-- END CSS for this page -->
 
+        <script src="//cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"></script>
+
 </head>
 
 <body class="adminbody">
@@ -48,7 +50,7 @@ if(isset($_SESSION['usuario']))
 
 		<!-- LOGO -->
         <div class="headerbar-left">
-			<a href="inicio.php" class="logo"><img alt="Logo" src="../assets/images/logo.png" /> <span>Salud Dental</span></a>
+			<a href="pacientes.php" class="logo"><img alt="Logo" src="../assets/images/logo.png" /> <span>Salud Dental</span></a>
         </div>
 
         <nav class="navbar-custom">
@@ -105,12 +107,6 @@ if(isset($_SESSION['usuario']))
 			<div id="sidebar-menu">
         
 			<ul>
-
-					<li class="submenu">
-						<a class="active" href="inicio.php"><i class="fa fa-fw fa-bars"></i><span> Menú </span> </a>
-                    </li>
-
-                    
                     <li class="submenu">
                         <a href="pacientes.php"><i class="fa fa-users"></i><span> Pacientes </span> </a>
                     </li>
