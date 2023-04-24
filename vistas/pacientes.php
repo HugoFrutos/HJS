@@ -230,7 +230,7 @@ $(document).on('click', '.accionesTabla', function() {
                             nroCedula = $("#txtcedulae").val();
                             nroTelefonoPaciente = $("#txttelefonoe").val();
                             oka = {
-                                "txtnombree" : nombrePaciente , "idPaciente" : id,
+                                        "txtnombree" : nombrePaciente , "idPaciente" : id,
                                         "txtapellidoe" : apellidoPaciente, "txtcedulae" : nroCedula,
                                         "txttelefonoe" : nroTelefonoPaciente,
                                 };

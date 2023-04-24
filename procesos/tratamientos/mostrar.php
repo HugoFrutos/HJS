@@ -1,7 +1,7 @@
 <?php
-    require "../../clases/Proveedor.php";
+    require "../../clases/Tratamiento.php";
     require "../../clases/Conexion.php";
-    $obj = new Proveedor();
+    $obj = new Tratamiento();
     $result = $obj->mostrar();
 
     if (!$result)

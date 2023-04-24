@@ -112,7 +112,7 @@ if(isset($_SESSION['usuario']))
                     </li>
 
                     <li class="submenu">
-                        <a href="proveedores.php"><i class="fa fa-plus-square"></i><span> Tratamientos </span> </a>
+                        <a href="tratamientos.php"><i class="fa fa-plus-square"></i><span> Tratamientos </span> </a>
                     </li>
 
                     <li class="submenu">

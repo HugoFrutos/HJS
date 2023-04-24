@@ -1,16 +1,11 @@
 <?php
-class Paciente{
+class TipoTratamiento{
         public function save($datos)
         {
             $c = new Conexion();
 			$conexion = $c->conectar();
-			$nroCedula = $c->test_input($datos[0]);
-            $nombrePaciente = $c->test_input($datos[1]);
-            $apellidoPaciente = $c->test_input($datos[2]);
-            $nroTelefonoPaciente = $c->test_input($datos[3]);
-			$sql = "INSERT INTO pacientes(nroCedula,nombrePaciente,apellidoPaciente,
-            nroTelefonoPaciente) 
-            values('$nroCedula','$nombrePaciente','$apellidoPaciente','$nroTelefonoPaciente')";
+			$tipoTratamiento = $c->test_input($datos[0]);
+			$sql = "INSERT INTO tipostratamiento (tipoTratamiento) values('$tipoTratamiento')";
 			$result = mysqli_query($conexion,$sql);
             return $result;
         }
@@ -20,13 +15,8 @@ class Paciente{
             $c = new Conexion();
 			$conexion = $c->conectar();
             $id = $datos[0];
-			$nroCedula = $c->test_input($datos[1]);
-            $nombrePaciente = $c->test_input($datos[2]);
-            $apellidoPaciente = $c->test_input($datos[3]);
-            $nroTelefonoPaciente = $c->test_input($datos[4]);
-			$sql = "UPDATE pacientes set nroCedula = '$nroCedula', nombrePaciente = '$nombrePaciente',
-                     apellidoPaciente = '$apellidoPaciente',
-                     nroTelefonoPaciente = '$nroTelefonoPaciente' where idPaciente=$id";
+			$tipoTratamiento = $c->test_input($datos[1]);
+			$sql = "UPDATE tipostratamiento set tipoTratamiento = '$tipoTratamiento' where idTipoTratamiento=$id";
 			$result = mysqli_query($conexion,$sql);
             return $result;
         }
@@ -42,7 +32,7 @@ class Paciente{
     {
             $c = new Conexion();
 			$conexion = $c->conectar();
-			$sql = "SELECT * from pacientes" ;
+			$sql = "SELECT * from tipostratamiento" ;
             $result = mysqli_query($conexion,$sql);
             return $result; 
     }
@@ -50,15 +40,12 @@ class Paciente{
     {
             $c = new Conexion();
 			$conexion = $c->conectar();
-			$sql = "select * from pacientes where idPaciente=$id";
+			$sql = "select * from tipostratamiento where idTipoTratamiento=$id";
 			$result = mysqli_query($conexion,$sql);
             $ver = mysqli_fetch_row($result);
             $datos = array(
-               "idPaciente" =>html_entity_decode($ver[0]),
-               "nroCedula" =>html_entity_decode($ver[1]),
-               "nombrePaciente" =>html_entity_decode($ver[2]),
-               "apellidoPaciente" =>html_entity_decode($ver[3]),
-               "nroTelefonoPaciente" =>html_entity_decode($ver[4]),
+               "idTipoTratamiento " =>html_entity_decode($ver[0]),
+               "tipoTratamiento" =>html_entity_decode($ver[1]),
              );
             return $datos;
     }

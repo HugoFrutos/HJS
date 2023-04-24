@@ -1,7 +1,7 @@
 <?php
-require_once '../../clases/Proveedor.php';
+require_once '../../clases/Tratamiento.php';
 require_once '../../clases/Conexion.php';
 $id = $_POST['id'];
-$obj = new Proveedor();
+$obj = new Tratamiento();
 echo $obj->delete($id);
 ?>
