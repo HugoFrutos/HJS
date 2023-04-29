@@ -1,6 +1,8 @@
 <?php
 class Tratamiento{
 
+    
+
     public function save($datos)
     {
             $c = new Conexion();
@@ -54,12 +56,26 @@ class Tratamiento{
             $sql = "SELECT tr.idTratamiento, tr.fechaInicio, tr.fechaProxConsulta, tr.observacionTratamiento, tr.dientes, ti.tipoTratamiento as idTipoTratamiento, pa.nombrePaciente as idPaciente 
                     FROM tratamientos tr
                     INNER JOIN pacientes pa ON tr.pacientes_idPaciente = pa.idPaciente
-                    INNER JOIN tipostratamiento ti ON tr.tiposTratamiento_idTipoTratamiento = ti.idTipoTratamiento";
+                    INNER JOIN tipostratamiento ti ON tr.tiposTratamiento_idTipoTratamiento = ti.idTipoTratamiento
+                    ORDER BY 1 ASC";
+            $result = mysqli_query($conexion,$sql);
+            return $result;
+    }
+
+    public function mostrar2()
+    {
+            $c = new Conexion();
+			$conexion = $c->conectar();
+            $sql = "SELECT tr.idTratamiento, tr.fechaInicio, tr.fechaProxConsulta, tr.observacionTratamiento, tr.dientes, ti.tipoTratamiento as idTipoTratamiento, pa.nombrePaciente as idPaciente 
+                    FROM tratamientos tr
+                    INNER JOIN pacientes pa ON tr.pacientes_idPaciente = pa.idPaciente
+                    INNER JOIN tipostratamiento ti ON tr.tiposTratamiento_idTipoTratamiento = ti.idTipoTratamiento
+                    WHERE pa.idPaciente = $vID";
             $result = mysqli_query($conexion,$sql);
             return $result;
     }
     public function traer($id)
-    {
+    {   
             $c = new Conexion();
 			$conexion = $c->conectar();
 			$sql = "select * from tratamientos where idTratamiento=$id";

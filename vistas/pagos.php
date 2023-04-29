@@ -21,22 +21,41 @@ if(isset($_SESSION['usuario']))
         </button>
       </div>
       <div class="modal-body">
-        <div class="row">
-            <label>Paciente</label>
-            <input type="text" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Tratamiento</label>
-            <input type="text" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Número de cédula</label>
-            <input type="text" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Débito</label>
-            <input type="number" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Crédito</label>
-            <input type="number" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Saldo</label>
-            <input type="number" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Fecha de pago</label>
-            <input type="date" class="form-control" id="txtnombre" name="txtnombre">
-
+      <form id="frmregistrar">
+            <div class="row">
+                <label>Paciente</label>
+                <form action="buscar.php" method="post">
+                    <label for="nombrePaciente">Nombre:</label>
+                    <input type="text" name="nombrePaciente" id="nombrePaciente"><br>
+                    <input type="submit" value="Buscar">
+	            </form>         
+                <button type="submit">Buscar</button>
+                <label>Tratamiento</label>
+                <select id="txttratamiento" name="txttratamiento" class="form-control">
+                        <option value="A">Seleccione</option>
+                            <?php
+                                require_once '../clases/Tratamiento.php';
+                                require_once '../clases/Conexion.php';
+                                $obj1 = new Tratamiento();
+                                $Tratamiento = $obj1->mostrar();
+                                while($pro=mysqli_fetch_row($Tratamiento))
+                                {
+                                    ?>
+                                    <option value="<?php echo $pro[0] ?>" ><?php echo $pro[5] ?></option>
+                                    <?php
+                                }      
+                                    ?>
+                </select><br>
+                <label>Débito</label>
+                <input type="number" class="form-control" id="txtdebito" name="txtdebito">
+                <label>Crédito</label>
+                <input type="number" class="form-control" id="txtcredito" name="txtcredito">
+                <label>Saldo</label>
+                <input type="number" class="form-control" id="txtsaldo" name="txtsaldo">
+                
+                <label>Observación</label>
+                <input type="text" class="form-control" id="txtobservacion" name="txtobservacion">
+        </form>                   
         </div>
       </div>
       <div class="modal-footer">
@@ -62,20 +81,48 @@ if(isset($_SESSION['usuario']))
       </div>
       <div class="modal-body">
         <div class="row">
-            <label>Paciente</label>
-            <input type="text" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Tratamiento</label>
-            <input type="text" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Número de cédula</label>
-            <input type="text" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Débito</label>
-            <input type="number" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Crédito</label>
-            <input type="number" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Saldo</label>
-            <input type="number" class="form-control" id="txtnombre" name="txtnombre">
-            <label>Fecha de pago</label>
-            <input type="date" class="form-control" id="txtnombre" name="txtnombre">
+        <form id="frmeditar">
+                <label>Paciente</label>
+                <select id="txtpacientee" name="txtpacientee" class="form-control">
+                    <option value="A">Seleccione</option>
+                        <?php
+                            require_once '../clases/Paciente.php';
+                            require_once '../clases/Conexion.php';
+                            $obj1 = new Paciente();
+                            $paciente = $obj1->mostrar();
+                            while($pro=mysqli_fetch_row($paciente))
+                            {
+                                ?>
+                                <option value="<?php echo $pro[0] ?>" ><?php echo $pro[2] ?></option>
+                                <?php
+                            }                              
+                                ?>
+                </select><br>
+                <label>Tratamiento</label>
+                <select id="txttratamientoe" name="txttratamientoe" class="form-control">
+                        <option value="A">Seleccione</option>
+                            <?php
+                                require_once '../clases/Tratamiento.php';
+                                require_once '../clases/Conexion.php';
+                                $obj1 = new Tratamiento();
+                                $Tratamiento = $obj1->mostrar();
+                                while($pro=mysqli_fetch_row($Tratamiento))
+                                {
+                                    ?>
+                                    <option value="<?php echo $pro[0] ?>" ><?php echo $pro[5] ?></option>
+                                    <?php
+                                }      
+                                    ?>
+                </select><br>
+                <label>Débito</label>
+                <input type="number" class="form-control" id="txtdebitoe" name="txtdebitoe">
+                <label>Crédito</label>
+                <input type="number" class="form-control" id="txtcreditoe" name="txtcreditoe">
+                <label>Saldo</label>
+                <input type="number" class="form-control" id="txtsaldoe" name="txtsaldoe">
+                <label>Observación</label>
+                <input type="text" class="form-control" id="txtobservacione" name="txtobservacione">
+            </form>
         </div>
       </div>
       <div class="modal-footer">
@@ -119,11 +166,11 @@ if(isset($_SESSION['usuario']))
                                     <td>#</td>
                                     <td>Paciente</td>
                                     <td>Tratamiento</td>
-                                    <td>Cédula</td>
                                     <td>Débito</td>
                                     <td>Crédito</td>
                                     <td>Saldo</td>
                                     <td>Fecha de pago</td>
+                                    <td>Observación</td>
                                     <td></td>
                                 </tr>
                             </thead>
@@ -163,7 +210,7 @@ $(document).ready(function(){
     
     var table = $('#myTable').DataTable({
         "ajax":{
-            "url":"../procesos/categorias/mostrar.php",
+            "url":"../procesos/pagos/mostrar.php",
             "type":"GET"
             //"crossDomain": "true",
             //"dataType": "json",
@@ -171,32 +218,32 @@ $(document).ready(function(){
         },
         "columns":[
             {
-                "data":"id_categoria"
+                "data":"idPago"
             },
             {   
-                "data":"nombre"
+                "data":"idPaciente"
             },
             {   
-                "data":"nombre"
+                "data":"tipoTratamiento"
             },
             {   
-                "data":"nombre"
+                "data":"debito"
             },
             {   
-                "data":"nombre"
+                "data":"credito"
             },
             {   
-                "data":"nombre"
+                "data":"saldo"
             },
             {   
-                "data":"nombre"
+                "data":"fechaPago"
             },
             {   
-                "data":"nombre"
+                "data":"observacionPago"
             },    
             {
                 sTitle: "Editar",
-                mDataProp: "id_categoria",
+                mDataProp: "idPago",
                 sWidth: '7%',
                 orderable: false,
                 render: function(data) {
@@ -221,30 +268,46 @@ $(document).on('click', '.accionesTabla', function() {
         case "Traer":
                     $.ajax({
                         method : "GET",
-                        url : "../procesos/categorias/traer.php",
-                        data:'id_categoria='+id
+                        url : "../procesos/pagos/traer.php",
+                        data:'idPago='+id
                     }).done(function(msg) {
                         var dato=JSON.parse(msg);
-                        
-				        $('#txtnombree').val(dato);
+				        $('#txtpacientee').val(dato['pacientes_idPaciente']);
+                        $('#txttratamientoe').val(dato['tratamientos_idTratamiento']);
+                        $('#txtdebitoe').val(dato['debito']);
+                        $('#txtcreditoe').val(dato['credito']);
+                        $('#txtsaldoe').val(dato['saldo']);
+                        $('#txtfechae').val(dato['fechaPago']);
+                        $('#txtobservacione').val(dato['observacionPago']);
        
                         $('#btneditar').unbind().click(function(){
                             
-                            noma = $("#txtnombree").val();
-                            if(noma.length != 0)
+                            vacios = validarFormVacio('frmeditar');
+                                                       
+                            if(vacios <= 0)
                                 {
-                             oka = {
-						                "txtnom" : noma , "id_categoriaa" : id
+                            pacientes_idPaciente  = $("#txtpacientee").val();
+                            tratamientos_idTratamiento = $("#txttratamientoe").val();
+                            debito = $("#txtdebitoe").val();
+                            credito = $("#txtcreditoe").val();
+                            saldo = $("#txtsaldoe").val();
+                            fechaPago = $("#txtfechae").val();
+                            observacionPago = $("#txtobservacione").val();
+                            oka = {
+                                        "txtpacientee" : pacientes_idPaciente , "idPago" : id,
+                                        "txttratamientoe" : tratamientos_idTratamiento, "txtdebitoe" : debito,
+                                        "txtcreditoe" : credito, "txtsaldoe" : saldo, "txtfechae" : fechaPago,
+                                        "txtobservacione" : observacionPago,
                                 };
                             //alert(oka);
                             //alert(JSON.stringify(oka));
                             $.ajax({
                                 method : "POST",
                                 //contentType: 'application/json; charset=utf-8',
-                                url : "../procesos/categorias/editar.php",
+                                url : "../procesos/pagos/editar.php",
                                 data : oka
                                 }).done(function(msg) {
-                                alertify.success("Categoria Editada Correctamente!");
+                                alertify.success("Pago editado correctamente");
                                 table.ajax.reload();
                                 });                               
                                     
@@ -255,28 +318,25 @@ $(document).on('click', '.accionesTabla', function() {
 
                         });
                     });
-            break;
+            break;/*
         case "Eliminar":
             
-            alertify.confirm('Categoria', '¿Esta seguro que desea eliminar esta categoria?', function()
+            alertify.confirm('Pago', '¿Esta seguro que desea eliminar esta pago?', function()
                 {
                         $.ajax({
                                 type:"POST",
-                                url : "../procesos/categorias/eliminar.php",
+                                url : "../procesos/pagos/eliminar.php",
                                 data : "id="+id
                             }).done(function(msg) {
-                                alertify.success("Categoria Eliminada Correctamente");
+                                alertify.success("Pago Eliminada Correctamente");
                                 table.ajax.reload();
                             });
                 }
                 , function(){
                 
                 });
-
-
-
-        
-                    break;
+  
+                    break;*/
         default:
             alert("No existe el valor");
             break;
@@ -286,19 +346,20 @@ $(document).on('click', '.accionesTabla', function() {
     
     
     $('#btnregistrar').click(function(){
-       nom = $('#txtnombre').val();
-        if(nom.length != 0 )
+        vacios = validarFormVacio('frmregistrar');
+        if(vacios <= 0)
             {
+            datos = $('#frmregistrar').serialize();
             $.ajax({
                type:'post',
-                url:'../procesos/categorias/registrar.php',
-                data:'txtnombre='+nom,
+                url:'../procesos/pagos/registrar.php',
+                data: datos,
                 success:function(r)
                 {
                     
                     if(r==1)
                         {
-                            alertify.success("Categoria Registrada Correcamente");
+                            alertify.success("Pago registrado correcamente");
                             table.ajax.reload();
                         }
                     else if(r==0)

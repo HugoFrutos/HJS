@@ -1,7 +1,7 @@
 <?php
-    require "../../clases/Categoria.php";
+    require "../../clases/Pago.php";
     require "../../clases/Conexion.php";
-    $obj = new Categoria();
+    $obj = new Pago();
     $result = $obj->mostrar();
 
     if (!$result)

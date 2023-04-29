@@ -321,9 +321,7 @@ $(document).on('click', '.accionesTabla', function() {
                         $('#txtProxConse').val(dato['fechaProxConsulta']);
                         $('#txtObse').val(dato['observacionTratamiento']);
                         $('#txtdientee').val(dato['dientes']);
-                        
-                        
-                        
+                                            
                         $('#btneditar').unbind().click(function(){
                             
                             vacios = validarFormVacio('frmeditar');
