@@ -23,17 +23,31 @@ if(isset($_SESSION['usuario']))
         </button>
       </div>
       <div class="modal-body">
-       <form id="frmproducto">
+       <form id="frmgasto">
         <div class="row">
            
             <label>Tipo (*)</label>
-            <input type="text" class="form-control" id="txtnombre" name="txtnombre">
+            <select id="txttipo" name="txttipo" class="form-control js-example-basic-single">
+                        <option value="A">Seleccione</option>
+                            <?php
+                                require_once '../clases/TipoGasto.php';
+                                require_once '../clases/Conexion.php';
+                                $obj1 = new TipoGasto();
+                                $tipoGasto = $obj1->mostrar();
+                                while($pro=mysqli_fetch_row($tipoGasto))
+                                {
+                            ?>
+                        <option value="<?php echo $pro[0] ?>" ><?php echo $pro[1] ?></option>
+                            <?php
+                                }      
+                                ?>
+            </select><br>
             <label>Monto (*)</label>
-            <input type="number" class="form-control" id="txtprecioc" name="txtprecioc">
+            <input type="number" class="form-control" id="txtmontogasto" name="txtmontogasto">
             <label>Fecha (*)</label>
-            <input type="date" class="form-control" id="txtpreciov" name="txtpreciov">
+            <input type="date" class="form-control" id="txtfechagasto" name="txtfechagasto">
             <label>Observación</label>
-            <input type="text" class="form-control" id="txtstock" name="txtstock">
+            <input type="text" class="form-control" id="txtObs" name="txtObs">
            
             </form>
         </div>
@@ -58,17 +72,31 @@ if(isset($_SESSION['usuario']))
         </button>
       </div>
 <div class="modal-body">
-       <form id="frmproductoe">
+       <form id="frmgastoe">
         <div class="row">
            
             <label>Tipo (*)</label>
-            <input type="text" class="form-control" id="txtnombree" name="txtnombree">
+            <select id="txttipoe" name="txttipoe" class="form-control js-example-basic-single">
+                        <option value="A">Seleccione</option>
+                            <?php
+                                require_once '../clases/TipoGasto.php';
+                                require_once '../clases/Conexion.php';
+                                $obj1 = new TipoGasto();
+                                $tipoGasto = $obj1->mostrar();
+                                while($pro=mysqli_fetch_row($tipoGasto))
+                                {
+                            ?>
+                        <option value="<?php echo $pro[0] ?>" ><?php echo $pro[1] ?></option>
+                            <?php
+                                }      
+                                ?>
+            </select><br>
             <label>Monto (*)</label>
-            <input type="number" class="form-control" id="txtprecioce" name="txtprecioce">
+            <input type="number" class="form-control" id="txtmontogastoe" name="txtmontogastoe">
             <label>Fecha(*)</label>
-            <input type="date" class="form-control" id="txtpreciove" name="txtpreciove">
+            <input type="date" class="form-control" id="txtfechagastoe" name="txtfechagastoe">
             <label>Observación</label>
-            <input type="text" class="form-control" id="txttipoe" name="txttipoe">            
+            <input type="text" class="form-control" id="txtObse" name="txtObse">            
             </form>
         </div>
         </div>
@@ -147,22 +175,23 @@ else {
 
 <script>
 $(document).ready(function(){
-    $('#txtproveedor').select2({
+    /*
+    $('#txttipo').select2({
         dropdownParent: $("#exampleModal .modal-content")
     });
-    $('#txtcategoria').select2({
+    $('#txtmonto').select2({
         dropdownParent: $("#exampleModal .modal-content")
     });
-    $('#txtproveedore').select2({
+    $('#txtfecha').select2({
         dropdownParent: $("#exampleModal2 .modal-content")
     });
-    $('#txtcategoriae').select2({
+    $('#txtobservacion').select2({
         dropdownParent: $("#exampleModal2 .modal-content")
-    });
+    });*/
     
     var table = $('#myTable').DataTable({
         "ajax":{
-            "url":"../procesos/productos/mostrar.php",
+            "url":"../procesos/gastos/mostrar.php",
             "type":"GET"
             //"crossDomain": "true",
             //"dataType": "json",
@@ -170,26 +199,26 @@ $(document).ready(function(){
         },
         "columns":[
             {
-                "data":"id_producto"
+                "data":"idGasto"
             },
             {
-                "data":"nombre"
-            },
-            {
-                
-                "data":"precio_compra"
+                "data":"idTipoGasto"
             },
             {
                 
-                "data":"precio_venta"
+                "data":"montoGasto"
             },
             {
                 
-                "data":"stock"
+                "data":"fechaGasto"
+            },
+            {
+                
+                "data":"observacionGasto"
             },  
             {
                 sTitle: "Editar",
-                mDataProp: "id_producto",
+                mDataProp: "idGasto",
                 sWidth: '7%',
                 orderable: false,
                 render: function(data) {
@@ -214,47 +243,43 @@ $(document).on('click', '.accionesTabla', function() {
         case "Traer":
                     $.ajax({
                         method : "GET",
-                        url : "../procesos/productos/traer.php",
-                        data:'id_producto='+id
+                        url : "../procesos/gastos/traer.php",
+                        data:'idGasto='+id
                     }).done(function(msg) {
                         var dato=JSON.parse(msg);
                         
-				        $('#txtnombree').val(dato['nombre']);
-                        $('#txtprecioce').val(dato['precio_compra']);
-                        $('#txtpreciove').val(dato['precio_venta']);
-                        $('#txtstocke').val(dato['stock']);
-                        $('#txtproveedore').val(dato['id_proveedor']);
-                        $('#txtcategoriae').val(dato['id_categoria']);
-                        
-                        
+				        $('#txtmontogastoe').val(dato['montoGasto']);
+                        $('#txtfechagastoe').val(dato['fechaGasto']);
+                        $('#txtObse').val(dato['observacionGasto']);
+                        $('#txttipoe').val(dato['tiposGasto_idTipoGasto']);
+
+                           
                         
                         $('#btneditar').unbind().click(function(){
-                            vacios = validarFormVacio('frmproductoe');
+                            vacios = validarFormVacio('frmgastoe');
                             
                             
                             if(vacios <= 0)
                                 {
-                            noma = $("#txtnombree").val();
-                            pc = $("#txtprecioce").val();
-                            pv = $("#txtpreciove").val();
-                            sto = $("#txtstocke").val();
-                            prove = $("#txtproveedore").val();
-                            cate = $("#txtcategoriae").val();
+                            tipo = $("#txttipoe").val();
+                            monto = $("#txtmontogastoe").val();
+                            fecha = $("#txtfechagastoe").val();
+                            observacion = $("#txtObse").val();
+                            
                              oka = {
-						                "txtnombree" : noma , "id_producto" : id,
-                                        "txtprecioce" : pc, "txtpreciove" : pv,
-                                        "txtstocke" : sto, "txtproveedore" : prove,
-                                        "txtcategoriae" : cate,
+						                "txttipoe" : tipo , "idGasto" : id,
+                                        "txtmontogastoe" : monto, "txtfechagastoe" : fecha,
+                                        "txtObse" : observacion, 
                                 };
                             //alert(oka);
                             //alert(JSON.stringify(oka));
                             $.ajax({
                                 method : "POST",
                                 //contentType: 'application/json; charset=utf-8',
-                                url : "../procesos/productos/editar.php",
+                                url : "../procesos/gastos/editar.php",
                                 data : oka
                                 }).done(function(msg) {
-                                alertify.success("Producto Editado Correctamente!");
+                                alertify.success("Gasto Editado Correctamente!");
                                 table.ajax.reload();
                                 });                               
                                     
@@ -275,20 +300,20 @@ $(document).on('click', '.accionesTabla', function() {
     
     
     $('#btnregistrar').click(function(){
-        vacios = validarFormVacio('frmproducto');
+        vacios = validarFormVacio('frmgasto');
         if(vacios <= 0 )
             {
-            datos=$('#frmproducto').serialize();
+            datos=$('#frmgasto').serialize();
             $.ajax({
                type:'post',
-                url:'../procesos/productos/registrar.php',
+                url:'../procesos/gastos/registrar.php',
                 data:datos,
                 success:function(r)
                 {
                     
                     if(r==1)
                         {
-                            alertify.success("Producto Registrado Correcamente");
+                            alertify.success("Gasto registrado correcamente");
                             table.ajax.reload();
                         }
                     else if(r==0)
@@ -308,5 +333,3 @@ $(document).on('click', '.accionesTabla', function() {
     });
 });
 </script>
-
-
