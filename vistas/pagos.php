@@ -172,6 +172,7 @@ if(isset($_SESSION['usuario']))
                                     <td>Fecha de pago</td>
                                     <td>Observación</td>
                                     <td></td>
+                                    <td></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,7 +241,19 @@ $(document).ready(function(){
             },
             {   
                 "data":"observacionPago"
-            },    
+            },  
+            {
+                    sTitle: "Eliminar",
+                    mDataProp: "idPago",
+                    sWidth: '7%',
+                    orderable: false,
+                    render: function(data) {
+                        acciones = `<button id="` + data + `" value="Eliminar"  type="button" class="fa fa-times btn btn-danger accionesTabla" >
+                                    
+                                </button>`;
+                        return acciones
+                    }
+            },  
             {
                 sTitle: "Editar",
                 mDataProp: "idPago",
@@ -318,17 +331,17 @@ $(document).on('click', '.accionesTabla', function() {
 
                         });
                     });
-            break;/*
+            break;
         case "Eliminar":
             
-            alertify.confirm('Pago', '¿Esta seguro que desea eliminar esta pago?', function()
+            alertify.confirm('Ingreso', '¿Esta seguro que desea eliminar este ingreso?', function()
                 {
                         $.ajax({
                                 type:"POST",
                                 url : "../procesos/pagos/eliminar.php",
                                 data : "id="+id
                             }).done(function(msg) {
-                                alertify.success("Pago Eliminada Correctamente");
+                                alertify.success("Ingreso eliminado correctamente");
                                 table.ajax.reload();
                             });
                 }
@@ -336,7 +349,7 @@ $(document).on('click', '.accionesTabla', function() {
                 
                 });
   
-                    break;*/
+                    break;
         default:
             alert("No existe el valor");
             break;
@@ -379,5 +392,4 @@ $(document).on('click', '.accionesTabla', function() {
     });
 });
 </script>
-
 
