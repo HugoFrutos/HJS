@@ -10,12 +10,11 @@ class Paciente
         $apellidoPaciente = $c->test_input($datos[2]);
         $nroTelefonoPaciente = $c->test_input($datos[3]);
         $sql = "INSERT INTO pacientes(nroCedula,nombrePaciente,apellidoPaciente,
-            nroTelefonoPaciente,estado) 
-            values('$nroCedula','$nombrePaciente','$apellidoPaciente','$nroTelefonoPaciente','activo')";
+            nroTelefonoPaciente) 
+            values('$nroCedula','$nombrePaciente','$apellidoPaciente','$nroTelefonoPaciente')";
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
-
 
     public function edit($datos)
     {
@@ -32,28 +31,22 @@ class Paciente
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
-    
-
-    public function delete($id)
-    {
-        $c = new Conexion();
-        $conexion = $c->conectar();
-        $sql = "update pacientes set estado = 'inactivo' where idPaciente=$id";
-        $result = mysqli_query($conexion, $sql);
-        return $result;
-    }
-
-
+    /*public function delete($id)
+        {
+            $c = new Conexion();
+			$conexion = $c->conectar();
+			$sql = "update pacientes set estado = 'inactivo' where idPaciente=$id";
+			$result = mysqli_query($conexion,$sql);
+            return $result;
+        }*/
     public function mostrar()
     {
         $c = new Conexion();
         $conexion = $c->conectar();
-        $sql = "SELECT * from pacientes where estado = 'activo'";
+        $sql = "SELECT * from pacientes";
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
-
-
     public function traer($id)
     {
         $c = new Conexion();
@@ -70,4 +63,5 @@ class Paciente
         );
         return $datos;
     }
+ 
 }
