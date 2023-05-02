@@ -115,6 +115,7 @@ if(isset($_SESSION['usuario']))
                                         <td>Apellido</td>
                                         <td>Teléfono</td>
                                         <td></td>
+                                        <td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -177,9 +178,18 @@ $(document).ready(function(){
             {           
                 "data":"nroTelefonoPaciente"
             },
- 
-
-            
+            {
+                    sTitle: "Eliminar",
+                    mDataProp: "idPaciente",
+                    sWidth: '7%',
+                    orderable: false,
+                    render: function(data) {
+                        acciones = `<button id="` + data + `" value="Eliminar"  type="button" class="fa fa-times btn btn-danger accionesTabla" >
+                                    
+                                </button>`;
+                        return acciones
+                    }
+            },   
             {
                 sTitle: "Editar",
                 mDataProp: "idPaciente",
@@ -254,6 +264,22 @@ $(document).on('click', '.accionesTabla', function() {
                         });
                     });
             break;
+            case "Eliminar":
+
+            alertify.confirm('Paciente', '¿Esta seguro que desea eliminar este paciente?', function() {
+                $.ajax({
+                    type: "POST",
+                    url: "../procesos/pacientes/eliminar.php",
+                    data: "id=" + id
+                }).done(function(msg) {
+                    alertify.success("Paciente eliminado correctamente");
+                    table.ajax.reload();
+                });
+            }, function() {
+
+            });
+            break;
+                    
         default:
             alert("No existe el valor");
             break;

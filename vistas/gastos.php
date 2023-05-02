@@ -143,6 +143,7 @@ if(isset($_SESSION['usuario']))
                                     <td>Fecha</td>
                                     <td>Observación</td>
                                     <td></td>
+                                    <td></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -217,6 +218,18 @@ $(document).ready(function(){
                 "data":"observacionGasto"
             },  
             {
+                    sTitle: "Eliminar",
+                    mDataProp: "idGasto",
+                    sWidth: '7%',
+                    orderable: false,
+                    render: function(data) {
+                        acciones = `<button id="` + data + `" value="Eliminar"  type="button" class="fa fa-times btn btn-danger accionesTabla" >
+                                    
+                                </button>`;
+                        return acciones
+                    }
+            }, 
+            {
                 sTitle: "Editar",
                 mDataProp: "idGasto",
                 sWidth: '7%',
@@ -290,6 +303,21 @@ $(document).on('click', '.accionesTabla', function() {
 
                         });
                     });
+            break;
+        case "Eliminar":
+
+                alertify.confirm('Gasot', '¿Esta seguro que desea eliminar este gasto?', function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "../procesos/gastos/eliminar.php",
+                        data: "id=" + id
+                    }).done(function(msg) {
+                        alertify.success("Gasto eliminado correctamente");
+                        table.ajax.reload();
+                    });
+                }, function() {
+
+                });
             break;
         default:
             alert("No existe el valor");

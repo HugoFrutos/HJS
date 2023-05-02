@@ -2,8 +2,6 @@
 class Gasto
 {
 
-
-
     public function save($datos)
     {
         $c = new Conexion();
@@ -12,11 +10,12 @@ class Gasto
         $fechaGasto = $c->test_input($datos[1]);
         $observacionGasto = $c->test_input($datos[2]);
         $tiposGasto_idTipoGasto  = $c->test_input($datos[3]);
-        $sql = "INSERT INTO gastos(montoGasto,fechaGasto,observacionGasto,tiposGasto_idTipoGasto) 
-            values('$montoGasto','$fechaGasto','$observacionGasto','$tiposGasto_idTipoGasto')";
+        $sql = "INSERT INTO gastos(montoGasto,fechaGasto,observacionGasto,tiposGasto_idTipoGasto,estado) 
+            values('$montoGasto','$fechaGasto','$observacionGasto','$tiposGasto_idTipoGasto','activo')";
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
+
 
     public function edit($datos)
     {
@@ -34,24 +33,29 @@ class Gasto
         return $result;
     }
 
-    /*public function delete($id)
+
+    public function delete($id)
     {
-            $c = new Conexion();
-			$conexion = $c->conectar();
-			$sql = "update gastos set estado = 'inactivo' where idGasto=$id";
-			$result = mysqli_query($conexion,$sql);
-            return $result;
-    }*/
+        $c = new Conexion();
+        $conexion = $c->conectar();
+        $sql = "update gastos set estado = 'inactivo' where idGasto=$id";
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    
     public function mostrar()
     {
         $c = new Conexion();
         $conexion = $c->conectar();
         $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto, ga.montoGasto, ga.fechaGasto, ga.observacionGasto 
                     FROM gastos ga
-                    INNER JOIN tiposgasto ti ON ga.tiposGasto_idTipoGasto = ti.idTipoGasto";
+                    INNER JOIN tiposgasto ti ON ga.tiposGasto_idTipoGasto = ti.idTipoGasto
+                    where ga.estado = 'activo' ";
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
+
 
     public function traer($id)
     {
