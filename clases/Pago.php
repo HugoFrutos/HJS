@@ -13,9 +13,9 @@ class Pago
         $saldo = $c->test_input($datos[4]);
         $observacionPago = $c->test_input($datos[5]);
         $sql = "INSERT INTO pagos(pacientes_idPaciente,tratamientos_idTratamiento,debito,credito,
-            saldo,fechaPago,observacionPago) 
+            saldo,fechaPago,observacionPago,estado) 
             values('$pacientes_idPaciente','$tratamientos_idTratamiento','$debito','$credito',
-            '$saldo',current_timestamp(), '$observacionPago')";
+            '$saldo',current_timestamp(), '$observacionPago','activo')";
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
@@ -40,14 +40,14 @@ class Pago
         return $result;
     }
 
-    /*public function delete($id)
+    public function delete($id)
     {
-            $c = new Conexion();
-			$conexion = $c->conectar();
-			$sql = "update tratamientos set estado = 'inactivo' where idTratamiento=$id";
-			$result = mysqli_query($conexion,$sql);
-            return $result;
-    }*/
+        $c = new Conexion();
+        $conexion = $c->conectar();
+        $sql = "update pagos set estado = 'inactivo' where idPago=$id";
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
     public function mostrar()
     {
         $c = new Conexion();
@@ -58,6 +58,7 @@ class Pago
                     INNER JOIN pacientes pa ON pg.pacientes_idPaciente = pa.idPaciente 
                     INNER JOIN tratamientos tr ON pg.tratamientos_idTratamiento = tr.idTratamiento 
                     INNER JOIN tipostratamiento tt ON tt.idTipoTratamiento = tr.tiposTratamiento_idTipoTratamiento
+                    where pg.estado = 'activo'
                     ORDER BY 1 ASC";
         $result = mysqli_query($conexion, $sql);
         return $result;
