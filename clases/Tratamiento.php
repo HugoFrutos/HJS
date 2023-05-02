@@ -15,9 +15,9 @@ class Tratamiento
         $tiposTratamiento_idTipoTratamiento = $c->test_input($datos[4]);
         $pacientes_idPaciente = $c->test_input($datos[5]);
         $sql = "INSERT INTO tratamientos(fechaInicio,fechaProxConsulta,observacionTratamiento,dientes,
-            tiposTratamiento_idTipoTratamiento,pacientes_idPaciente, estado) 
+            tiposTratamiento_idTipoTratamiento,pacientes_idPaciente) 
             values('$fechaInicio','$fechaProxConsulta','$observacionTratamiento','$dientes',
-            '$tiposTratamiento_idTipoTratamiento','$pacientes_idPaciente','activo')";
+            '$tiposTratamiento_idTipoTratamiento','$pacientes_idPaciente')";
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
@@ -58,7 +58,6 @@ class Tratamiento
                     FROM tratamientos tr
                     INNER JOIN pacientes pa ON tr.pacientes_idPaciente = pa.idPaciente
                     INNER JOIN tipostratamiento ti ON tr.tiposTratamiento_idTipoTratamiento = ti.idTipoTratamiento
-                    where tr.estado = 'activo'
                     ORDER BY 1 ASC";
         $result = mysqli_query($conexion, $sql);
         return $result;
