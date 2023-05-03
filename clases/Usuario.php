@@ -26,8 +26,8 @@ class Usuario{
             $c = new Conexion();
 			$conexion = $c->conectar();
 			$password = mysqli_real_escape_string($conexion,sha1(md5($passwords)));
-            $usuario = $_SESSION['datos']->usuario;
-			$sql = "UPDATE usuarios SET clave = '$password' where usuario='$usuario'";
+            $usuario = $_SESSION['datos']->username;
+			$sql = "UPDATE usuarios SET password = '$password' where username='$usuario'";
 			$result = mysqli_query($conexion,$sql);
             return $result;
         }

@@ -83,4 +83,21 @@ class Pago
         );
         return $datos;
     }
+
+    public function generarInforme($f1, $f2)
+    {
+        $c = new Conexion();
+        $conexion = $c->conectar();
+        $sql = "SELECT pg.idPago, CONCAT(pa.nombrePaciente,' ',pa.apellidoPaciente) as idPaciente, tt.tipoTratamiento,
+            pg.debito, pg.credito, pg.saldo, DATE_FORMAT(pg.fechaPago, '%d-%m-%Y %H:%i:%s') as fechaPago, pg.observacionPago 
+            FROM pagos pg 
+            INNER JOIN pacientes pa ON pg.pacientes_idPaciente = pa.idPaciente 
+            INNER JOIN tratamientos tr ON pg.tratamientos_idTratamiento = tr.idTratamiento 
+            INNER JOIN tipostratamiento tt ON tt.idTipoTratamiento = tr.tiposTratamiento_idTipoTratamiento
+            WHERE pg.fechaPago BETWEEN '$f1' AND '$f2' and pg.estado = 'activo' 
+            ORDER BY 7 ASC";
+        $result = mysqli_query($conexion, $sql);
+
+        return $result;
+    }
 }

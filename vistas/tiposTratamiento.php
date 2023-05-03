@@ -183,7 +183,7 @@ if (isset($_SESSION['usuario'])) {
                 }
             ],
             responsive: true,
-            "ordering": false
+            "ordering": true
 
 
         });

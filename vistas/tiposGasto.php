@@ -174,7 +174,7 @@ $(document).ready(function(){
             },
         ],
         responsive:true,
-                "ordering": false
+                "ordering": true
 
 
     });

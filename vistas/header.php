@@ -120,7 +120,11 @@ if(isset($_SESSION['usuario']))
                     </li>
 
                     <li class="submenu">
-                        <a href="pagos.php"><i class="fa fa-usd"></i><span> Ingresos </span> </a>
+                        <a href="#.php"><i class="fa fa-usd"></i><span> Ingresos </span> <span class="menu-arrow"></span> </a>
+                        <ul class="list-unstyled">
+								<li><a href="pagos.php"> Ver ingresos </a></li>
+								<li><a href="informeIngresos.php"> Informe de ingresos </a></li>
+						</ul>
                     </li>
 
                     <li class="submenu">
@@ -128,11 +132,8 @@ if(isset($_SESSION['usuario']))
                         <ul class="list-unstyled">
 								<li><a href="gastos.php"> Ver gastos </a></li>
 								<li><a href="tiposGasto.php"> Tipos de gastos </a></li>
+                                <li><a href="informeGastos.php"> Informe de gastos </a></li>
 						</ul>
-                    </li>
-
-                    <li class="submenu">
-                        <a href="informes.php"><i class="fa fa-book"></i><span> Informes </span> </a>
                     </li>
             </ul>
 
