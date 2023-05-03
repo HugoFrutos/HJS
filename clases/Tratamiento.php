@@ -54,7 +54,7 @@ class Tratamiento
     {
         $c = new Conexion();
         $conexion = $c->conectar();
-        $sql = "SELECT tr.idTratamiento, tr.fechaInicio, tr.fechaProxConsulta, tr.observacionTratamiento, tr.dientes, ti.tipoTratamiento as idTipoTratamiento, pa.nombrePaciente as idPaciente 
+        $sql = "SELECT tr.idTratamiento, DATE_FORMAT(tr.fechaInicio, '%d-%m-%Y') as fechaInicio, DATE_FORMAT(tr.fechaProxConsulta, '%d-%m-%Y') as fechaProxConsulta, tr.observacionTratamiento, tr.dientes, ti.tipoTratamiento as idTipoTratamiento, CONCAT(pa.nombrePaciente, ' ', pa.apellidoPaciente) as idPaciente
                     FROM tratamientos tr
                     INNER JOIN pacientes pa ON tr.pacientes_idPaciente = pa.idPaciente
                     INNER JOIN tipostratamiento ti ON tr.tiposTratamiento_idTipoTratamiento = ti.idTipoTratamiento
@@ -64,7 +64,7 @@ class Tratamiento
         return $result;
     }
 
-    /*public function mostrar2()
+    public function mostrar2($idPaciente)
     {
             $c = new Conexion();
 			$conexion = $c->conectar();
@@ -72,10 +72,10 @@ class Tratamiento
                     FROM tratamientos tr
                     INNER JOIN pacientes pa ON tr.pacientes_idPaciente = pa.idPaciente
                     INNER JOIN tipostratamiento ti ON tr.tiposTratamiento_idTipoTratamiento = ti.idTipoTratamiento
-                    WHERE pa.idPaciente = $vID";
+                    WHERE pa.idPaciente = $idPaciente";
             $result = mysqli_query($conexion,$sql);
             return $result;
-    }*/
+    }
     public function traer($id)
     {
         $c = new Conexion();

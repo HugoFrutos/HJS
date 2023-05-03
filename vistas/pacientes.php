@@ -201,7 +201,19 @@ $(document).ready(function(){
                                 </button>`;
                     return acciones
                 }
-            },
+            },/*
+            {
+                sTitle: "Ver tratamientos",
+                mDataProp: "idPaciente",
+                sWidth: '7%',
+                orderable: false,
+                render: function(data) {
+                    acciones = `<button id="` + data + `" value="Ver" class="fa fa-pencil-square-o btn btn-primary accionesTabla" data-toggle="modal" data-target="#exampleModal2" type="button"  >
+                                    
+                                </button>`;
+                    return acciones
+                }
+            },*/
         ],
         responsive:true,
                 "ordering": false
@@ -278,7 +290,16 @@ $(document).on('click', '.accionesTabla', function() {
             }, function() {
 
             });
-            break;
+            break;/*
+            case "Ver":
+                $.ajax({
+                    type: "POST",
+                    url: "../procesos/pacientes/verTratamientos.php",
+                    data: "id=" + id
+                }).done(function(msg) {
+                    table.ajax.reload();
+                });
+            break;*/
                     
         default:
             alert("No existe el valor");

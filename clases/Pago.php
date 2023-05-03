@@ -52,8 +52,8 @@ class Pago
     {
         $c = new Conexion();
         $conexion = $c->conectar();
-        $sql = "SELECT pg.idPago, pa.nombrePaciente as idPaciente, tt.tipoTratamiento,
-                    pg.debito, pg.credito, pg.saldo, pg.fechaPago, pg.observacionPago 
+        $sql = "SELECT pg.idPago, CONCAT(pa.nombrePaciente,' ',pa.apellidoPaciente) as idPaciente, tt.tipoTratamiento,
+                    pg.debito, pg.credito, pg.saldo, DATE_FORMAT(pg.fechaPago, '%d-%m-%Y %H:%i:%s') as fechaPago, pg.observacionPago 
                     FROM pagos pg 
                     INNER JOIN pacientes pa ON pg.pacientes_idPaciente = pa.idPaciente 
                     INNER JOIN tratamientos tr ON pg.tratamientos_idTratamiento = tr.idTratamiento 

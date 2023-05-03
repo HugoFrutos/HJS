@@ -48,7 +48,7 @@ class Gasto
     {
         $c = new Conexion();
         $conexion = $c->conectar();
-        $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto, ga.montoGasto, ga.fechaGasto, ga.observacionGasto 
+        $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto, ga.montoGasto, DATE_FORMAT(ga.fechaGasto, '%d-%m-%Y') as fechaGasto, ga.observacionGasto 
                     FROM gastos ga
                     INNER JOIN tiposgasto ti ON ga.tiposGasto_idTipoGasto = ti.idTipoGasto
                     where ga.estado = 'activo' ";

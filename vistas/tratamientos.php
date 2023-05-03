@@ -222,19 +222,6 @@ if (isset($_SESSION['usuario'])) {
 
 <script>
     $(document).ready(function() {
-        /*
-            $('#txttipotratamiento').select2({
-                dropdownParent: $("#exampleModal .modal-content")
-            });
-            $('#txtpaciente').select2({
-                dropdownParent: $("#exampleModal .modal-content")
-            });
-            $('#txttipotratamientoe').select2({
-                dropdownParent: $("#exampleModal2 .modal-content")
-            });
-            $('#txtpacientee').select2({
-                dropdownParent: $("#exampleModal2 .modal-content")
-            });*/
 
         var table = $('#myTable').DataTable({
             "ajax": {
