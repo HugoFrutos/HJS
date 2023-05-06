@@ -48,7 +48,7 @@ class Gasto
     {
         $c = new Conexion();
         $conexion = $c->conectar();
-        $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto, ga.montoGasto, DATE_FORMAT(ga.fechaGasto, '%d-%m-%Y') as fechaGasto, ga.observacionGasto 
+        $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto, ga.montoGasto, DATE_FORMAT(ga.fechaGasto, '%d-%m-%Y') as fechaGasto, ga.observacionGasto
                     FROM gastos ga
                     INNER JOIN tiposgasto ti ON ga.tiposGasto_idTipoGasto = ti.idTipoGasto
                     where ga.estado = 'activo' ";
@@ -82,6 +82,18 @@ class Gasto
             $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto, ga.montoGasto, DATE_FORMAT(ga.fechaGasto, '%d-%m-%Y') as fechaGasto, ga.observacionGasto
                     FROM gastos ga
                     INNER JOIN tiposgasto ti ON ga.tiposGasto_idTipoGasto = ti.idTipoGasto 
+                    WHERE ga.fechaGasto BETWEEN '$f1' AND '$f2' and ga.estado = 'activo'";
+            $result= mysqli_query($conexion,$sql);
+
+              return $result ;
+    }
+
+    public function total($f1,$f2)
+    {
+            $c = new Conexion();
+			$conexion = $c->conectar();
+            $sql = "SELECT SUM(ga.montoGasto)
+                    FROM gastos ga
                     WHERE ga.fechaGasto BETWEEN '$f1' AND '$f2' and ga.estado = 'activo'";
             $result= mysqli_query($conexion,$sql);
 

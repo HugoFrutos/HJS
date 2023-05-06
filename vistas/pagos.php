@@ -23,14 +23,30 @@ if(isset($_SESSION['usuario']))
       <div class="modal-body">
       <form id="frmregistrar">
             <div class="row">
-                <label>Paciente</label>
+                <label>Paciente</label><br>
+                <select id="txtpaciente" name="txtpaciente" class="form-control">
+                                    <option value="A">Seleccione</option>
+                                    <?php
+                                    require_once '../clases/Paciente.php';
+                                    require_once '../clases/Conexion.php';
+                                    $obj1 = new Paciente();
+                                    $paciente = $obj1->mostrar();
+                                    while ($pro = mysqli_fetch_row($paciente)) {
+                                    ?>
+                                        <option value="<?php echo $pro[0] ?>"><?php echo $pro[2] ?></option>
+                                    <?php
+                                    }
+
+                                    ?>
+                                </select><br>
+                <!--
                 <form action="buscar.php" method="post">
                     <label for="nombrePaciente">Nombre:</label>
                     <input type="text" name="nombrePaciente" id="nombrePaciente"><br>
                     <input type="submit" value="Buscar">
-	            </form>         
-                <button type="submit">Buscar</button>
-                <label>Tratamiento</label>
+	            </form>  
+                -->
+                <br><label>Tratamiento</label>
                 <select id="txttratamiento" name="txttratamiento" class="form-control">
                         <option value="A">Seleccione</option>
                             <?php
@@ -49,10 +65,7 @@ if(isset($_SESSION['usuario']))
                 <label>Débito</label>
                 <input type="number" class="form-control" id="txtdebito" name="txtdebito">
                 <label>Crédito</label>
-                <input type="number" class="form-control" id="txtcredito" name="txtcredito">
-                <label>Saldo</label>
-                <input type="number" class="form-control" id="txtsaldo" name="txtsaldo">
-                
+                <input type="number" class="form-control" id="txtcredito" name="txtcredito">           
                 <label>Observación</label>
                 <input type="text" class="form-control" id="txtobservacion" name="txtobservacion">
         </form>                   
@@ -118,8 +131,6 @@ if(isset($_SESSION['usuario']))
                 <input type="number" class="form-control" id="txtdebitoe" name="txtdebitoe">
                 <label>Crédito</label>
                 <input type="number" class="form-control" id="txtcreditoe" name="txtcreditoe">
-                <label>Saldo</label>
-                <input type="number" class="form-control" id="txtsaldoe" name="txtsaldoe">
                 <label>Observación</label>
                 <input type="text" class="form-control" id="txtobservacione" name="txtobservacione">
             </form>
@@ -209,6 +220,7 @@ else {
 <script>
 $(document).ready(function(){
     
+    
     var table = $('#myTable').DataTable({
         "ajax":{
             "url":"../procesos/pagos/mostrar.php",
@@ -269,9 +281,13 @@ $(document).ready(function(){
         ],
         responsive:true,
                 "ordering": true
+        
+        
 
 
     });
+    var total = table.column(2).data().sum();
+        console.log(total);
     
 $(document).on('click', '.accionesTabla', function() {
     var id = this.id;

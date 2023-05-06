@@ -30,7 +30,7 @@ if (isset($_SESSION['usuario'])) {
                 </div>
                 <!-- end row -->
                 <form action="informeGastos.php" method="post">
-                <label>Seleccione el rango de tiempo</label>
+                    <label>Seleccione el rango de tiempo</label>
                     <div class="row">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-3">
@@ -61,6 +61,8 @@ if (isset($_SESSION['usuario'])) {
                             require_once '../clases/Gasto.php';
                             $obj = new Gasto();
                             $result = $obj->generarInforme($_POST['txtfecha1'], $_POST['txtfecha2']);
+                            $total = $obj->total($_POST['txtfecha1'], $_POST['txtfecha2']);
+                            $total2 = mysqli_fetch_row($total)
                         ?>
 
                             <table id="gastos" class="table table-bordered table-hover table-condensed">
@@ -90,8 +92,14 @@ if (isset($_SESSION['usuario'])) {
                                     }
                                 } else {
                                 } ?>
-
+                     
                                 </tbody>
+                            </table>
+                            <table class="table table-bordered table-hover table-condensed">
+                                <thead>
+                                    <td>Total de monto: <?php echo $total2[0] ?></td>
+
+                                </thead>
                             </table>
                     </div>
 
@@ -120,7 +128,7 @@ if (isset($_SESSION['usuario'])) {
 
 <script>
     $(document).ready(function() {
-        $('#gastos').dataTable({
+        var table = $('#gastos').dataTable({
             "ordering": true,
             "info": false
         });

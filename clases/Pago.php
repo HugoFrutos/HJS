@@ -10,12 +10,11 @@ class Pago
         $tratamientos_idTratamiento = $c->test_input($datos[1]);
         $debito = $c->test_input($datos[2]);
         $credito = $c->test_input($datos[3]);
-        $saldo = $c->test_input($datos[4]);
-        $observacionPago = $c->test_input($datos[5]);
+        $observacionPago = $c->test_input($datos[4]);
         $sql = "INSERT INTO pagos(pacientes_idPaciente,tratamientos_idTratamiento,debito,credito,
             saldo,fechaPago,observacionPago,estado) 
             values('$pacientes_idPaciente','$tratamientos_idTratamiento','$debito','$credito',
-            '$saldo',current_timestamp(), '$observacionPago','activo')";
+            '$debito - $credito',current_timestamp(), '$observacionPago','activo')";
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
@@ -33,7 +32,7 @@ class Pago
         $observacionPago = $c->test_input($datos[6]);
         $sql = "UPDATE pagos SET pacientes_idPaciente = '$pacientes_idPaciente',
             tratamientos_idTratamiento = '$tratamientos_idTratamiento', debito = '$debito',
-            credito = '$credito', saldo = '$saldo',
+            credito = '$credito', saldo = '$debito - $credito',
             fechaPago = current_timestamp(), observacionPago = '$observacionPago' 
             WHERE idPago = $id";
         $result = mysqli_query($conexion, $sql);
@@ -53,7 +52,7 @@ class Pago
         $c = new Conexion();
         $conexion = $c->conectar();
         $sql = "SELECT pg.idPago, CONCAT(pa.nombrePaciente,' ',pa.apellidoPaciente) as idPaciente, tt.tipoTratamiento,
-                    pg.debito, pg.credito, pg.saldo, DATE_FORMAT(pg.fechaPago, '%d-%m-%Y %H:%i:%s') as fechaPago, pg.observacionPago 
+                    pg.debito, pg.credito, (pg.debito - pg.credito) as saldo, DATE_FORMAT(pg.fechaPago, '%d-%m-%Y %H:%i:%s') as fechaPago, pg.observacionPago 
                     FROM pagos pg 
                     INNER JOIN pacientes pa ON pg.pacientes_idPaciente = pa.idPaciente 
                     INNER JOIN tratamientos tr ON pg.tratamientos_idTratamiento = tr.idTratamiento 
