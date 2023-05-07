@@ -24,6 +24,9 @@ if (mysqli_num_rows($resultado) > 0) {
 		echo "<tr>
         <td>" . $fila['nombrePaciente'] . "</td>
         </tr>";
+		echo "<input type='radio' name='selected_option' value='" . $fila['id'] . "'>";
+            echo $fila['column1'];
+            echo "<br>";
 	}
 	echo "</table>";
 } else {

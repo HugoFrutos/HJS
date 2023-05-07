@@ -67,18 +67,16 @@ class Pago
     {
         $c = new Conexion();
         $conexion = $c->conectar();
-        $sql = "select * from pagos where idPago=$id";
+        $sql = "select idPago, pacientes_idPaciente, tratamientos_idTratamiento, debito, credito, observacionPago from pagos where idPago=$id";
         $result = mysqli_query($conexion, $sql);
         $ver = mysqli_fetch_row($result);
         $datos = array(
             "idPago" => html_entity_decode($ver[0]),
-            "pacientes_idPaciente " => html_entity_decode($ver[1]),
-            "tratamientos_idTratamiento " => html_entity_decode($ver[2]),
+            "pacientes_idPaciente" => html_entity_decode($ver[1]),
+            "tratamientos_idTratamiento" => html_entity_decode($ver[2]),
             "debito" => html_entity_decode($ver[3]),
             "credito" => html_entity_decode($ver[4]),
-            "saldo" => html_entity_decode($ver[5]),
-            "fechaPago" => html_entity_decode($ver[6]),
-            "observacionPago" => html_entity_decode($ver[7]),
+            "observacionPago" => html_entity_decode($ver[5]),
         );
         return $datos;
     }
@@ -88,7 +86,7 @@ class Pago
         $c = new Conexion();
         $conexion = $c->conectar();
         $sql = "SELECT pg.idPago, CONCAT(pa.nombrePaciente,' ',pa.apellidoPaciente) as idPaciente, tt.tipoTratamiento,
-            pg.debito, pg.credito, pg.saldo, DATE_FORMAT(pg.fechaPago, '%d-%m-%Y %H:%i:%s') as fechaPago, pg.observacionPago 
+            pg.debito, pg.credito, (pg.debito - pg.credito) as saldo, DATE_FORMAT(pg.fechaPago, '%d-%m-%Y %H:%i:%s') as fechaPago, pg.observacionPago 
             FROM pagos pg 
             INNER JOIN pacientes pa ON pg.pacientes_idPaciente = pa.idPaciente 
             INNER JOIN tratamientos tr ON pg.tratamientos_idTratamiento = tr.idTratamiento 
@@ -98,5 +96,17 @@ class Pago
         $result = mysqli_query($conexion, $sql);
 
         return $result;
+    }
+
+    public function total($f1,$f2)
+    {
+            $c = new Conexion();
+			$conexion = $c->conectar();
+            $sql = "SELECT SUM(pg.credito)
+                    FROM pagos pg
+                    WHERE pg.fechaPago BETWEEN '$f1' AND '$f2' and pg.estado = 'activo'";
+            $result= mysqli_query($conexion,$sql);
+
+              return $result ;
     }
 }

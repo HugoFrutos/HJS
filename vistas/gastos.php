@@ -47,7 +47,7 @@ if(isset($_SESSION['usuario']))
             <label>Fecha (*)</label>
             <input type="date" class="form-control" id="txtfechagasto" name="txtfechagasto">
             <label>Observación</label>
-            <input type="text" class="form-control" id="txtObs" name="txtObs">
+            <input type="text" class="form-control" id="txtObs" name="txtObs" required="false">
            
             </form>
         </div>

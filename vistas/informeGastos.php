@@ -62,9 +62,14 @@ if (isset($_SESSION['usuario'])) {
                             $obj = new Gasto();
                             $result = $obj->generarInforme($_POST['txtfecha1'], $_POST['txtfecha2']);
                             $total = $obj->total($_POST['txtfecha1'], $_POST['txtfecha2']);
-                            $total2 = mysqli_fetch_row($total)
+                            $total2 = mysqli_fetch_row($total);
                         ?>
+                            <table class="table table-bordered table-hover table-condensed">
+                                <thead>
+                                    <td>Total de monto: <?php echo $total2[0] ?></td>
 
+                                </thead>
+                            </table>
                             <table id="gastos" class="table table-bordered table-hover table-condensed">
                                 <thead>
                                     <tr>
@@ -92,15 +97,10 @@ if (isset($_SESSION['usuario'])) {
                                     }
                                 } else {
                                 } ?>
-                     
+
                                 </tbody>
                             </table>
-                            <table class="table table-bordered table-hover table-condensed">
-                                <thead>
-                                    <td>Total de monto: <?php echo $total2[0] ?></td>
-
-                                </thead>
-                            </table>
+                            
                     </div>
 
                 </div>

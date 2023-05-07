@@ -23,30 +23,14 @@ if(isset($_SESSION['usuario']))
       <div class="modal-body">
       <form id="frmregistrar">
             <div class="row">
-                <label>Paciente</label><br>
-                <select id="txtpaciente" name="txtpaciente" class="form-control">
-                                    <option value="A">Seleccione</option>
-                                    <?php
-                                    require_once '../clases/Paciente.php';
-                                    require_once '../clases/Conexion.php';
-                                    $obj1 = new Paciente();
-                                    $paciente = $obj1->mostrar();
-                                    while ($pro = mysqli_fetch_row($paciente)) {
-                                    ?>
-                                        <option value="<?php echo $pro[0] ?>"><?php echo $pro[2] ?></option>
-                                    <?php
-                                    }
-
-                                    ?>
-                                </select><br>
-                <!--
+                <label>Paciente</label>
                 <form action="buscar.php" method="post">
                     <label for="nombrePaciente">Nombre:</label>
                     <input type="text" name="nombrePaciente" id="nombrePaciente"><br>
                     <input type="submit" value="Buscar">
-	            </form>  
-                -->
-                <br><label>Tratamiento</label>
+	            </form>         
+                <button type="submit">Buscar</button>
+                <label>Tratamiento</label>
                 <select id="txttratamiento" name="txttratamiento" class="form-control">
                         <option value="A">Seleccione</option>
                             <?php
@@ -65,7 +49,10 @@ if(isset($_SESSION['usuario']))
                 <label>Débito</label>
                 <input type="number" class="form-control" id="txtdebito" name="txtdebito">
                 <label>Crédito</label>
-                <input type="number" class="form-control" id="txtcredito" name="txtcredito">           
+                <input type="number" class="form-control" id="txtcredito" name="txtcredito">
+                <label>Saldo</label>
+                <input type="number" class="form-control" id="txtsaldo" name="txtsaldo">
+                
                 <label>Observación</label>
                 <input type="text" class="form-control" id="txtobservacion" name="txtobservacion">
         </form>                   
@@ -220,7 +207,6 @@ else {
 <script>
 $(document).ready(function(){
     
-    
     var table = $('#myTable').DataTable({
         "ajax":{
             "url":"../procesos/pagos/mostrar.php",
@@ -281,13 +267,9 @@ $(document).ready(function(){
         ],
         responsive:true,
                 "ordering": true
-        
-        
 
 
     });
-    var total = table.column(2).data().sum();
-        console.log(total);
     
 $(document).on('click', '.accionesTabla', function() {
     var id = this.id;
@@ -305,8 +287,6 @@ $(document).on('click', '.accionesTabla', function() {
                         $('#txttratamientoe').val(dato['tratamientos_idTratamiento']);
                         $('#txtdebitoe').val(dato['debito']);
                         $('#txtcreditoe').val(dato['credito']);
-                        $('#txtsaldoe').val(dato['saldo']);
-                        $('#txtfechae').val(dato['fechaPago']);
                         $('#txtobservacione').val(dato['observacionPago']);
        
                         $('#btneditar').unbind().click(function(){
@@ -319,13 +299,11 @@ $(document).on('click', '.accionesTabla', function() {
                             tratamientos_idTratamiento = $("#txttratamientoe").val();
                             debito = $("#txtdebitoe").val();
                             credito = $("#txtcreditoe").val();
-                            saldo = $("#txtsaldoe").val();
-                            fechaPago = $("#txtfechae").val();
                             observacionPago = $("#txtobservacione").val();
                             oka = {
                                         "txtpacientee" : pacientes_idPaciente , "idPago" : id,
                                         "txttratamientoe" : tratamientos_idTratamiento, "txtdebitoe" : debito,
-                                        "txtcreditoe" : credito, "txtsaldoe" : saldo, "txtfechae" : fechaPago,
+                                        "txtcreditoe" : credito,
                                         "txtobservacione" : observacionPago,
                                 };
                             //alert(oka);
@@ -408,4 +386,3 @@ $(document).on('click', '.accionesTabla', function() {
     });
 });
 </script>
-

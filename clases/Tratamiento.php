@@ -89,8 +89,9 @@ class Tratamiento
             "fechaProxConsulta" => html_entity_decode($ver[2]),
             "observacionTratamiento" => html_entity_decode($ver[3]),
             "dientes" => html_entity_decode($ver[4]),
-            "tiposTratamiento_idTipoTratamiento " => html_entity_decode($ver[5]),
-            "pacientes_idPaciente " => html_entity_decode($ver[6]),
+            "pacientes_idPaciente " => html_entity_decode($ver[5]),
+            "tiposTratamiento_idTipoTratamiento " => html_entity_decode($ver[6]),
+            
         );
         return $datos;
     }

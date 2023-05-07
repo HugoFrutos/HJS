@@ -42,6 +42,7 @@ if (isset($_SESSION['usuario'])) {
                                     ?>
                                 </select><br>
                                 <label>Paciente</label>
+                                
                                 <select id="txtpaciente" name="txtpaciente" class="form-control">
                                     <option value="A">Seleccione</option>
                                     <?php
