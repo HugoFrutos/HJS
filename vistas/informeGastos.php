@@ -7,8 +7,9 @@ if (isset($_SESSION['usuario'])) {
 
 ?>
 
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="../helpers/imprimirGastos.js" defer> </script>
     <!-- Modal -->
 
     <div class="content-page">
@@ -46,7 +47,7 @@ if (isset($_SESSION['usuario'])) {
                     </div>
                     <hr>
                 </form>
-                <div class="row">
+                <div id="iGastos" class="row">
                     <!-- Button trigger modal -->
 
 
@@ -63,10 +64,29 @@ if (isset($_SESSION['usuario'])) {
                             $result = $obj->generarInforme($_POST['txtfecha1'], $_POST['txtfecha2']);
                             $total = $obj->total($_POST['txtfecha1'], $_POST['txtfecha2']);
                             $total2 = mysqli_fetch_row($total);
+                            $fecha1 = $_POST['txtfecha1'];
+                            $fecha2 = $_POST['txtfecha2'];
+
+                            // Convertir la fecha1 en un objeto de fecha y formatear en el nuevo formato
+                            $fecha1_nuevo_formato = date("d-m-Y", strtotime($fecha1));
+
+                            // Convertir la fecha2 en un objeto de fecha y formatear en el nuevo formato
+                            $fecha2_nuevo_formato = date("d-m-Y", strtotime($fecha2));
+
                         ?>
                             <table class="table table-bordered table-hover table-condensed">
+                                <div class="row">
+
+                                    <div class="col-lg-5">
+                                        <label>Informe de gastos desde <?php echo $fecha1_nuevo_formato ?> hasta <?php echo $fecha2_nuevo_formato ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
+                                    </div>
+                                </div>
                                 <thead>
-                                    <td>Total de monto: <?php echo $total2[0] ?></td>
+                                    <td>Total de gastos: <?php echo $total2[0] ?></td>
 
                                 </thead>
                             </table>
@@ -100,7 +120,7 @@ if (isset($_SESSION['usuario'])) {
 
                                 </tbody>
                             </table>
-                            
+
                     </div>
 
                 </div>

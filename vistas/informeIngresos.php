@@ -7,6 +7,9 @@ if (isset($_SESSION['usuario'])) {
 
 ?>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="../helpers/imprimirIngresos.js" defer> </script>
 
 
     <!-- Modal -->
@@ -46,7 +49,7 @@ if (isset($_SESSION['usuario'])) {
                     </div>
                     <hr>
                 </form>
-                <div class="row">
+                <div id="iIngresos" class="row">
                     <!-- Button trigger modal -->
 
 
@@ -65,10 +68,21 @@ if (isset($_SESSION['usuario'])) {
                             $total2 = mysqli_fetch_row($total);
                         ?>
                             <table class="table table-bordered table-hover table-condensed">
+                                <div class="row">
+                                    
+                                    <div class="col-lg-5">
+                                        <label>Informe de ingresos desde <?php echo $_POST['txtfecha1'] ?> hasta <?php echo $_POST['txtfecha2'] ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
+                                    </div>
+                                </div>
                                 <thead>
-                                    <td>Total de monto: <?php echo $total2[0] ?></td>
+                                    <td>Total de ingresos: <?php echo $total2[0] ?></td>
 
                                 </thead>
+                                
                             </table>
                             <table id="ingresos" class="table table-bordered table-hover table-condensed">
                                 <thead>

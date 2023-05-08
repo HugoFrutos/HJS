@@ -26,7 +26,7 @@ if (isset($_SESSION['usuario'])) {
 
                         <div class="col-lg-12">
                             <form id="frmregistrar">
-                                <label>Tipo de tratamiento</label>
+                                <label>Tipo de tratamiento (*)</label>
                                 <select id="txttipotratamiento" name="txttipotratamiento" class="form-control">
                                     <option value="A">Seleccione</option>
                                     <?php
@@ -41,7 +41,7 @@ if (isset($_SESSION['usuario'])) {
                                     }
                                     ?>
                                 </select><br>
-                                <label>Paciente</label>
+                                <label>Paciente (*)</label>
                                 
                                 <select id="txtpaciente" name="txtpaciente" class="form-control">
                                     <option value="A">Seleccione</option>
@@ -59,9 +59,9 @@ if (isset($_SESSION['usuario'])) {
                                     ?>
                                 </select><br>
 
-                                <label>Fecha de inicio</label>
+                                <label>Fecha de inicio (*)</label>
                                 <input type="date" class="form-control" id="txtfechaInicio" name="txtfechaInicio">
-                                <label>Fecha de próxima consulta</label>
+                                <label>Fecha de próxima consulta (*)</label>
                                 <input type="date" class="form-control" id="txtProxCons" name="txtProxCons">
                                 <label>Dientes</label>
                                 <input type="text" class="form-control" id="txtdiente" name="txtdiente">
