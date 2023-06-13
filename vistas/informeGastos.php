@@ -30,21 +30,40 @@ if (isset($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- end row -->
+
+                <style>
+                    #pdf-div {
+                        display: none;
+                    }
+                </style>
+
                 <form action="informeGastos.php" method="post">
                     <label>Seleccione el rango de tiempo</label>
                     <div class="row">
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-auto"></div>
+                        <div class="col-lg-auto">
                             <input type="date" class="form-control" name="txtfecha1" required />
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-auto">
                             <input type="date" class="form-control" name="txtfecha2" required />
                         </div>
-                        <div class="col-lg-4">
-                            <input type="submit" value="Buscar" class="btn btn-primary">
+                        <div class="col-lg-auto">
+                            <input type="submit" value="Generar informe" class="btn btn-primary" onclick="mostrarPDFDiv()">
+                        </div>
+                        <div class="col-md-auto" id="pdf-div">
+                            <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
                         </div>
                         <div class="col-lg-1"></div>
                     </div>
+
+                    <script>
+                        function mostrarPDFDiv() {
+                            var pdfDiv = document.getElementById("pdf-div");
+                            pdfDiv.style.display = "block";
+                        }
+                    </script>
+
+
                     <hr>
                 </form>
                 <div id="iGastos" class="row">
@@ -81,9 +100,7 @@ if (isset($_SESSION['usuario'])) {
                                         <label>Informe de gastos desde <?php echo $fecha1_nuevo_formato ?> hasta <?php echo $fecha2_nuevo_formato ?>
                                         </label>
                                     </div>
-                                    <div class="col-md-5">
-                                        <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
-                                    </div>
+                                    
                                 </div>
                                 <thead>
                                     <td>Total de gastos: <?php echo $total2[0] ?></td>
@@ -149,6 +166,9 @@ if (isset($_SESSION['usuario'])) {
 <script>
     $(document).ready(function() {
         var table = $('#gastos').dataTable({
+            "language":{
+                "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+            },
             "ordering": true,
             "info": false
         });
