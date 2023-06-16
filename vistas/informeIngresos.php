@@ -75,9 +75,7 @@ if (isset($_SESSION['usuario'])) {
                             }
                         </script>
 
-                        <div class="col-md-auto" id="pdf-div">
-                            <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
-                        </div>
+
 
 
                         <div class="col-lg-auto"></div>
@@ -112,14 +110,12 @@ if (isset($_SESSION['usuario'])) {
                         ?>
 
                             <table class="table table-bordered table-hover table-condensed">
-                                <div class="row">
-
-                                    <div class="col-lg-5">
-                                        <label>Informe de ingresos desde <?php echo $fecha1_nuevo_formato ?> hasta <?php echo $fecha2_nuevo_formato ?>
-                                        </label>
+                                <div class="row d-flex align-items-center justify-content-center">
+                                    <div class="col-lg-auto">
+                                        <label>Informe de gastos desde <?php echo $fecha1_nuevo_formato ?> hasta <?php echo $fecha2_nuevo_formato ?></label>
                                     </div>
-                                    <div class="col-md-5">
-
+                                    <div class="col-lg-auto ml-auto" id="pdf-div">
+                                        <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
                                     </div>
                                 </div>
                                 <thead>
@@ -192,7 +188,7 @@ if (isset($_SESSION['usuario'])) {
 <script>
     $(document).ready(function() {
         $('#ingresos').dataTable({
-            "language":{
+            "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
             },
             "ordering": true,

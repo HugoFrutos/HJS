@@ -31,11 +31,7 @@ if (isset($_SESSION['usuario'])) {
                 </div>
                 <!-- end row -->
 
-                <style>
-                    #pdf-div {
-                        display: none;
-                    }
-                </style>
+
 
                 <form action="informeGastos.php" method="post">
                     <label>Seleccione el rango de tiempo</label>
@@ -48,28 +44,47 @@ if (isset($_SESSION['usuario'])) {
                             <input type="date" class="form-control" name="txtfecha2" required />
                         </div>
                         <div class="col-lg-auto">
-                            <input type="submit" value="Generar informe" class="btn btn-primary" onclick="mostrarPDFDiv()">
+                            <input type="submit" value="Generar informe" class="btn btn-primary">
                         </div>
-                        <div class="col-md-auto" id="pdf-div">
-                            <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
-                        </div>
-                        <div class="col-lg-1"></div>
+
+                        <script>
+                            // Obtener los campos de fecha
+                            var fechaUno = document.getElementByName("txtfecha1")[0];
+                            var fechaDos = document.getElementByName("txtfecha2")[0];
+
+                            // Agregar evento onchange a ambos campos
+                            fechaUno.onchange = function() {
+                                mostrarPDFDiv();
+                            };
+                            fechaDos.onchange = function() {
+                                mostrarPDFDiv();
+                            };
+
+                            // Función para mostrar el div con el botón PDF
+                            function mostrarPDFDiv() {
+                                // Obtener el div correspondiente
+                                var pdfDiv = document.getElementById("pdf-div");
+
+                                // Verificar si ambos campos de fecha tienen valor
+                                if (fechaUno.value && fechaDos.value) {
+                                    // Mostrar el div
+                                    pdfDiv.style.display = "block";
+                                } else {
+                                    // Ocultar el div
+                                    pdfDiv.style.display = "none";
+                                }
+                            }
+                        </script>
+
+
+
+
+                        <div class="col-lg-auto"></div>
                     </div>
-
-                    <script>
-                        function mostrarPDFDiv() {
-                            var pdfDiv = document.getElementById("pdf-div");
-                            pdfDiv.style.display = "block";
-                        }
-                    </script>
-
-
                     <hr>
                 </form>
                 <div id="iGastos" class="row">
                     <!-- Button trigger modal -->
-
-
 
 
                     <div class="col-lg-12">
@@ -94,18 +109,20 @@ if (isset($_SESSION['usuario'])) {
 
                         ?>
                             <table class="table table-bordered table-hover table-condensed">
-                                <div class="row">
-
-                                    <div class="col-lg-5">
-                                        <label>Informe de gastos desde <?php echo $fecha1_nuevo_formato ?> hasta <?php echo $fecha2_nuevo_formato ?>
-                                        </label>
+                                <div class="row d-flex align-items-center justify-content-center">
+                                    <div class="col-lg-auto">
+                                        <label>Informe de gastos desde <?php echo $fecha1_nuevo_formato ?> hasta <?php echo $fecha2_nuevo_formato ?></label>
                                     </div>
-                                    
+                                    <div class="col-lg-auto ml-auto" id="pdf-div">
+                                        <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
+                                    </div>
                                 </div>
                                 <thead>
                                     <td>Total de gastos: <?php echo $total2[0] ?></td>
 
                                 </thead>
+
+
                             </table>
                             <table id="gastos" class="table table-bordered table-hover table-condensed">
                                 <thead>
@@ -166,7 +183,7 @@ if (isset($_SESSION['usuario'])) {
 <script>
     $(document).ready(function() {
         var table = $('#gastos').dataTable({
-            "language":{
+            "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
             },
             "ordering": true,
