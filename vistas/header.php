@@ -106,7 +106,12 @@ if(isset($_SESSION['usuario']))
 
 			<div id="sidebar-menu">
         
-			<ul>
+			<ul>    
+
+                    <li class="submenu">
+                        <a href="usuarios.php"><i class="fa fa-user"></i><span> Usuarios </span> </a>
+                    </li>
+
                     <li class="submenu">
                         <a href="pacientes.php"><i class="fa fa-users"></i><span> Pacientes </span> </a>
                     </li>
