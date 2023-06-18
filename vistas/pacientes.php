@@ -33,7 +33,7 @@ if(isset($_SESSION['usuario']))
             <label>Número de cédula (*)</label>
             <input type="number" class="form-control" id="txtcedula" name="txtcedula">
             <label>Número de teléfono (*)</label>
-            <input type="text" class="form-control" id="txttelefono" name="txttelefono">
+            <input type="number" class="form-control" id="txttelefono" name="txttelefono">
            
             </form>
         </div>
