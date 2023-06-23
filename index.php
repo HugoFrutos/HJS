@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+if (isset($_SESSION['rol'])) {
+  switch ($_SESSION['rol']) {
+    case 1:
+      header('location: vistas/usuarios.php');
+      break;
+
+    case 2:
+      header('location: vistas/pacientes.php');
+      break;
+
+    default:
+  }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -28,60 +48,28 @@
         <div class="card card-signin my-5">
           <div class="card-body">
             <h5 class="card-title text-center"><strong>Salud Dental</strong></h5>
-            <form class="form-signin" id="frmlogin">
+            <form action="procesos/usuarios/login.php" method="post" class="form-signin" id="frmlogin">
               <div class="form-label-group">
-                <input type="text" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputEmail">Usuario</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
+                <label for="username">Usuario</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Contraseña</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <label for="password">Contraseña</label>
               </div>
 
-
-              <span class="btn btn-lg btn-success btn-block text-uppercase" id="btningresar" type="submit">Ingresar</span><br>
-              <div class="custom-control custom-checkbox mb-3">
-
+              <div class="input-field">
+                <center><input class="submit" type="submit" value="Entrar"></center>
               </div>
-            </form>
+
           </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+  </div>
 </body>
 
 </html>
-
-
-<script>
-  $(document).ready(function() {
-    $('#btningresar').click(function() {
-      datos = $('#frmlogin').serialize();
-      var usu = $('#inputEmail').val();
-      var cla = $('#inputPassword').val();
-
-      if (usu.length == 0 || cla.length == 0) {
-        alertify.error("Complete los campos");
-      } else {
-        $.ajax({
-          type: "POST",
-          data: datos,
-          url: "procesos/usuarios/login.php",
-          success: function(r) {
-            if (r == 1) {
-              window.location = "vistas/pacientes.php";
-            } else if (r == 0) {
-              alertify.error("Error al ingresar los datos");
-            } else {
-              //alertify.error("Error al ingresar los datos");
-              alert(r);
-            }
-          }
-        });
-      }
-
-    });
-  });
-</script>

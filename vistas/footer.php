@@ -9,7 +9,7 @@ else
 
 }
 
-if(isset($_SESSION['usuario']))
+if(isset($_SESSION['rol']))
 {
 
 
@@ -60,7 +60,6 @@ if(isset($_SESSION['usuario']))
 </html>
 <!-- BEGIN Java Script for this page -->
 <script src="../assets/plugins/select2/js/select2.min.js"></script>
-
 <?php
 }
 else {

@@ -1,11 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['rol'])) {
+
+    header('location: ../index.php');
+}
 require 'header.php';
-
-if(isset($_SESSION['usuario']))
-{
-
-
-
 ?>
 
 
@@ -196,11 +196,6 @@ if(isset($_SESSION['usuario']))
 
 <?php
 require 'footer.php';
-}
-else {
-	header("location:../index.php");  
-}
-
 ?>
 
 

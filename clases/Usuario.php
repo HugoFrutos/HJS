@@ -6,19 +6,35 @@ class Usuario
 	{
 		$c = new Conexion();
 		$conexion = $c->conectar();
-		$password = mysqli_real_escape_string($conexion, sha1(md5($datos[1])));
-		$usuario = mysqli_real_escape_string($conexion, $datos[0]);
-		$sql = "select * from usuarios where username='$usuario' and password='$password'";
+		$password = sha1(md5($datos[1]));
+		$usuario = $datos[0];
+		$sql = "select * from usuarios where BINARY username='$usuario' and BINARY password='$password'";
 		$result = mysqli_query($conexion, $sql);
 
-		if (mysqli_num_rows($result) > 0) {
-			$_SESSION['usuario'] = $datos[0];
-			$_SESSION['datos'] = $result->fetch_object();
-			return 1;
+		$ver = mysqli_fetch_row($result);
+
+		if ($ver == true) {
+			$nUsuario = $ver[3];
+			$rol = $ver[6];
+			$_SESSION['rol'] = $rol;
+			$_SESSION['usuario'] = $nUsuario;
+
+			switch ($_SESSION['rol']) {
+				case 1:
+					header('location: ../../vistas/usuarios.php');
+					break;
+
+				case 2:
+					header('location: ../../vistas/pacientes.php');
+					break;
+
+				default:
+			}
 		} else {
-			return 0;
+			echo "usuario o contraseÃ±a incorrectos";
 		}
 	}
+
 	public function cambiarpass($passwords)
 	{
 		$c = new Conexion();

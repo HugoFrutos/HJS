@@ -1,187 +1,194 @@
-<link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-
 <?php
-require 'header.php';
 
-if (isset($_SESSION['usuario'])) {
+
+    session_start();
+
+
+if (!isset($_SESSION['rol'])) {
+    header('location: ../index.php');
+} else {
+    if ($_SESSION['rol'] != 1) {
+        header('location: ../index.php');
+    }
+}
+require 'header.php';
 
 
 
 ?>
 
+<link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 
 
-    <!-- Modal ar -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registrar usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-
-                        <div class="col-lg-12">
-                            <form id="frmregistrar">
-                                <label>Usuario</label>
-                                <input type="text" class="form-control" id="txtusername" name="txtusername">
-                                <label>Contraseña</label>
-                                <input type="password" class="form-control" id="txtpassword" name="txtpassword">
-                                <label>Nombre</label>
-                                <input type="text" class="form-control" id="txtnombreUsuario" name="txtnombreUsuario">
-                                <label>Apellido</label>
-                                <input type="text" class="form-control" id="txtapellidoUsuario" name="txtapellidoUsuario">
-                                <label>Tipo de usuario</label>
-                                <select id="txttipoUsuario" name="txttipoUsuario" class="form-control">
-                                    <option value="A">Seleccione</option>
-                                    <?php
-                                    require_once '../clases/TipoUsuario.php';
-                                    require_once '../clases/Conexion.php';
-                                    $obj1 = new TipoUsuario();
-                                    $tipoUsuario = $obj1->mostrar();
-                                    while ($pro = mysqli_fetch_row($tipoUsuario)) {
-                                    ?>
-                                        <option value="<?php echo $pro[0] ?>"><?php echo $pro[1] ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select><br>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="btnregistrar">Guardar</button>
-                </div>
+<!-- Modal ar -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-    </div>
-
-
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-
-                        <div class="col-lg-12">
-                            <form id="frmeditar">
-                            <label>Usuario</label>
-                                <input type="text" class="form-control" id="txtusernamee" name="txtusernamee">
-                                <label>Contraseña</label>
-                                <input type="password" class="form-control" id="txtpassworde" name="txtpassworde">
-                                <label>Nombre</label>
-                                <input type="text" class="form-control" id="txtnombreUsuarioe" name="txtnombreUsuarioe">
-                                <label>Apellido</label>
-                                <input type="text" class="form-control" id="txtapellidoUsuarioe" name="txtapellidoUsuarioe">
-                                <label>Tipo de usuario</label>
-                                <select id="txttipoUsuarioe" name="txttipoUsuarioe" class="form-control">
-                                    <option value="A">Seleccione</option>
-                                    <?php
-                                    require_once '../clases/TipoUsuario.php';
-                                    require_once '../clases/Conexion.php';
-                                    $obj1 = new TipoUsuario();
-                                    $tipoUsuario = $obj1->mostrar();
-                                    while ($pro = mysqli_fetch_row($tipoUsuario)) {
-                                    ?>
-                                        <option value="<?php echo $pro[0] ?>"><?php echo $pro[1] ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select><br>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="btneditar" class="btn btn-primary">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="content-page">
-
-        <!-- Start content -->
-        <div class="content">
-
-            <div class="container-fluid">
-
+            <div class="modal-body">
                 <div class="row">
-                    <div class="col-xl-12">
-                        <div class="breadcrumb-holder">
-                            <h1 class="main-title float-left">Usuarios</h1>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                Registrar
-                            </button>
-                            <div class="clearfix">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end row -->
-                <div class="row">
-                    <!-- Button trigger modal -->
 
                     <div class="col-lg-12">
-                        <table id="myTable" class="table">
-                            <thead>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Usuario</td>
-                                    <td>Contraseña</td>
-                                    <td>Nombre</td>
-                                    <td>Apellido</td>
-                                    <td>Tipo de usuario</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
+                        <form id="frmregistrar">
+                            <label>Usuario</label>
+                            <input type="text" class="form-control" id="txtusername" name="txtusername">
+                            <label>Contraseña</label>
+                            <input type="password" class="form-control" id="txtpassword" name="txtpassword">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" id="txtnombreUsuario" name="txtnombreUsuario">
+                            <label>Apellido</label>
+                            <input type="text" class="form-control" id="txtapellidoUsuario" name="txtapellidoUsuario">
+                            <label>Tipo de usuario</label>
+                            <select id="txttipoUsuario" name="txttipoUsuario" class="form-control">
+                                <option value="A">Seleccione</option>
+                                <?php
+                                require_once '../clases/TipoUsuario.php';
+                                require_once '../clases/Conexion.php';
+                                $obj1 = new TipoUsuario();
+                                $tipoUsuario = $obj1->mostrar();
+                                while ($pro = mysqli_fetch_row($tipoUsuario)) {
+                                ?>
+                                    <option value="<?php echo $pro[0] ?>"><?php echo $pro[1] ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select><br>
+                        </form>
                     </div>
 
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="btnregistrar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <form id="frmeditar">
+                            <label>Usuario</label>
+                            <input type="text" class="form-control" id="txtusernamee" name="txtusernamee">
+                            <label>Contraseña</label>
+                            <input type="password" class="form-control" id="txtpassworde" name="txtpassworde">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" id="txtnombreUsuarioe" name="txtnombreUsuarioe">
+                            <label>Apellido</label>
+                            <input type="text" class="form-control" id="txtapellidoUsuarioe" name="txtapellidoUsuarioe">
+                            <label>Tipo de usuario</label>
+                            <select id="txttipoUsuarioe" name="txttipoUsuarioe" class="form-control">
+                                <option value="A">Seleccione</option>
+                                <?php
+                                require_once '../clases/TipoUsuario.php';
+                                require_once '../clases/Conexion.php';
+                                $obj1 = new TipoUsuario();
+                                $tipoUsuario = $obj1->mostrar();
+                                while ($pro = mysqli_fetch_row($tipoUsuario)) {
+                                ?>
+                                    <option value="<?php echo $pro[0] ?>"><?php echo $pro[1] ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select><br>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btneditar" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="content-page">
+
+    <!-- Start content -->
+    <div class="content">
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="breadcrumb-holder">
+                        <h1 class="main-title float-left">Usuarios</h1>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Registrar
+                        </button>
+                        <div class="clearfix">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <div class="row">
+                <!-- Button trigger modal -->
+
+                <div class="col-lg-12">
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>Usuario</td>
+                                <td>Contraseña</td>
+                                <td>Nombre</td>
+                                <td>Apellido</td>
+                                <td>Tipo de usuario</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
-            <!-- END container-fluid -->
+
+
 
         </div>
-        <!-- END content -->
+        <!-- END container-fluid -->
 
     </div>
-    <!-- END content-page -->
+    <!-- END content -->
+
+</div>
+<!-- END content-page -->
 
 
 
 <?php
-    require 'footer.php';
-} else {
-    header("location:../index.php");
-}
+require 'footer.php';
+
 
 ?>
 
@@ -191,7 +198,7 @@ if (isset($_SESSION['usuario'])) {
 
         var table = $('#myTable').DataTable({
 
-            "language":{
+            "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
             },
 
@@ -288,7 +295,7 @@ if (isset($_SESSION['usuario'])) {
                                     "txtnombreUsuarioe": nombreUsuario,
                                     "txtapellidoUsuarioe": apellidoUsuario,
                                     "txttipoUsuarioe": tipousuario,
-                                    
+
                                 };
                                 //alert(oka);
                                 //alert(JSON.stringify(oka));
