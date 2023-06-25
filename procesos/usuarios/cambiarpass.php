@@ -17,7 +17,7 @@ if(empty($contraseñaa) or empty($contraseñan))
 }
 else {
 
-  if(sha1(md5($contraseñaa)) == $_SESSION['datos']->password)
+  if(sha1(md5($contraseñaa)) == $_SESSION['datos'])
   {
     echo $obj->cambiarpass($contraseñan);
     

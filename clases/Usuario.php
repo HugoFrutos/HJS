@@ -16,8 +16,12 @@ class Usuario
 		if ($ver == true) {
 			$nUsuario = $ver[3];
 			$rol = $ver[6];
+			$pass = $ver[2];
+			$usname	= $ver[1];
 			$_SESSION['rol'] = $rol;
 			$_SESSION['usuario'] = $nUsuario;
+			$_SESSION['datos'] = $pass;
+			$_SESSION['nombre'] = $usname;
 
 			switch ($_SESSION['rol']) {
 				case 1:
@@ -40,7 +44,7 @@ class Usuario
 		$c = new Conexion();
 		$conexion = $c->conectar();
 		$password = mysqli_real_escape_string($conexion, sha1(md5($passwords)));
-		$usuario = $_SESSION['datos']->username;
+		$usuario = $_SESSION['nombre'];
 		$sql = "UPDATE usuarios SET password = '$password' where username='$usuario'";
 		$result = mysqli_query($conexion, $sql);
 		return $result;
