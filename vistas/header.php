@@ -89,9 +89,7 @@ if(isset($_SESSION['rol']))
 
                 <ul class="list-inline menu-left mb-0">
                     <li class="float-left">
-                    <button class="button-menu-mobile open-left">
-								<i class="fa fa-fw fa-bars"></i>
-                            </button> 
+
                     </li>
                 </ul>
 

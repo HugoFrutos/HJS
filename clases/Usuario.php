@@ -31,7 +31,7 @@ class Usuario
 				default:
 			}
 		} else {
-			echo "usuario o contraseÃ±a incorrectos";
+			echo "usuario o contraseña incorrectos";
 		}
 	}
 

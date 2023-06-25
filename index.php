@@ -33,7 +33,7 @@ if (isset($_SESSION['rol'])) {
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <script src="assets/jquery-3.2.1.min.js"></script>
-  <link rel="stylesheet" href="assets/login/login.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
 
 
   <link rel="stylesheet" type="text/css" href="assets/alertifyjs/css/alertify.css">
@@ -43,32 +43,37 @@ if (isset($_SESSION['rol'])) {
 
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"><br><br><br><br>
-        <div class="card card-signin my-5">
-          <div class="card-body">
-            <h5 class="card-title text-center"><strong>Salud Dental</strong></h5>
-            <form action="procesos/usuarios/login.php" method="post" class="form-signin" id="frmlogin">
-              <div class="form-label-group">
-                <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
-                <label for="username">Usuario</label>
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="assets/images/logo.png" alt="logo">
+        <div class="text">
+          <span class="text-1">Consultorio Odontológico <br> Salud Dental</span>
+        </div>
+      </div>
+    </div>
+    <div class="forms">
+      <div class="form-content">
+        <div class="login-form">
+          <div class="title">Iniciar sesión</div>
+          <form action="procesos/usuarios/login.php" method="post" class="form-signin" id="frmlogin">
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" name="username" placeholder="Ingrese su nombre de usuario" required autofocus>
               </div>
-
-              <div class="form-label-group">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                <label for="password">Contraseña</label>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password"  placeholder="Ingrese su contraseña" required>
               </div>
-
-              <div class="input-field">
-                <center><input class="submit" type="submit" value="Entrar"></center>
+              <div class="button input-box">
+                <input type="submit" value="Iniciar">
               </div>
-
-          </div>
+            </div>
           </form>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </body>
 
