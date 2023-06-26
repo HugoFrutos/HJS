@@ -287,7 +287,7 @@ require 'footer.php';
                     }).done(function(msg) {
                         var dato = JSON.parse(msg);
                         $('#txtpacientee').val(dato['pacientes_idPaciente']);
-                        $('#txttratamientoe').val(dato['tratamientos_idTratamiento']);
+                        $('#txttratamientoe').val(dato['tiposTratamiento_idTipoTratamiento']);
                         $('#txtdebitoe').val(dato['debito']);
                         $('#txtcreditoe').val(dato['credito']);
                         $('#txtobservacione').val(dato['observacionPago']);
@@ -298,14 +298,14 @@ require 'footer.php';
 
                             if (vacios <= 0) {
                                 pacientes_idPaciente = $("#txtpacientee").val();
-                                tratamientos_idTratamiento = $("#txttratamientoe").val();
+                                tiposTratamiento_idTipoTratamiento = $("#txttratamientoe").val();
                                 debito = $("#txtdebitoe").val();
                                 credito = $("#txtcreditoe").val();
                                 observacionPago = $("#txtobservacione").val();
                                 oka = {
                                     "txtpacientee": pacientes_idPaciente,
                                     "idPago": id,
-                                    "txttratamientoe": tratamientos_idTratamiento,
+                                    "txttratamientoe": tiposTratamiento_idTipoTratamiento,
                                     "txtdebitoe": debito,
                                     "txtcreditoe": credito,
                                     "txtobservacione": observacionPago,
