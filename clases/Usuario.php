@@ -35,7 +35,7 @@ class Usuario
 				default:
 			}
 		} else {
-			echo "usuario o contraseña incorrectos";
+			header('location: ../../index.php?el=1');
 		}
 	}
 

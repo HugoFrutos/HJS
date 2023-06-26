@@ -43,20 +43,20 @@ require 'header.php';
                         <select id="txttratamiento" name="txttratamiento" class="form-control">
                             <option value="A">Seleccione</option>
                             <?php
-                            require_once '../clases/Tratamiento.php';
+                            require_once '../clases/TipoTratamiento.php';
                             require_once '../clases/Conexion.php';
-                            $obj1 = new Tratamiento();
-                            $Tratamiento = $obj1->mostrar();
-                            while ($pro = mysqli_fetch_row($Tratamiento)) {
+                            $obj1 = new TipoTratamiento();
+                            $tipoTratamiento = $obj1->mostrar();
+                            while ($pro = mysqli_fetch_row($tipoTratamiento)) {
                             ?>
-                                <option value="<?php echo $pro[0] ?>"><?php echo $pro[5] ?></option>
+                                <option value="<?php echo $pro[0] ?>"><?php echo $pro[1] ?></option>
                             <?php
                             }
                             ?>
                         </select><br>
-                        <label>Débito</label>
+                        <label>Total a pagar</label>
                         <input type="number" class="form-control" id="txtdebito" name="txtdebito">
-                        <label>Crédito</label>
+                        <label>Monto abonado</label>
                         <input type="number" class="form-control" id="txtcredito" name="txtcredito">
 
                         <label>Observación</label>
@@ -107,20 +107,20 @@ require 'header.php';
                         <select id="txttratamientoe" name="txttratamientoe" class="form-control">
                             <option value="A">Seleccione</option>
                             <?php
-                            require_once '../clases/Tratamiento.php';
+                            require_once '../clases/TipoTratamiento.php';
                             require_once '../clases/Conexion.php';
-                            $obj1 = new Tratamiento();
-                            $Tratamiento = $obj1->mostrar();
-                            while ($pro = mysqli_fetch_row($Tratamiento)) {
+                            $obj1 = new TipoTratamiento();
+                            $tipoTratamiento = $obj1->mostrar();
+                            while ($pro = mysqli_fetch_row($tipoTratamiento)) {
                             ?>
-                                <option value="<?php echo $pro[0] ?>"><?php echo $pro[5] ?></option>
+                                <option value="<?php echo $pro[0] ?>"><?php echo $pro[1] ?></option>
                             <?php
                             }
                             ?>
                         </select><br>
-                        <label>Débito</label>
+                        <label>Total a pagar</label>
                         <input type="number" class="form-control" id="txtdebitoe" name="txtdebitoe">
-                        <label>Crédito</label>
+                        <label>Monto abonado</label>
                         <input type="number" class="form-control" id="txtcreditoe" name="txtcreditoe">
                         <label>Observación</label>
                         <input type="text" class="form-control" id="txtobservacione" name="txtobservacione">
@@ -168,9 +168,9 @@ require 'header.php';
                                 <td>#</td>
                                 <td>Paciente</td>
                                 <td>Tratamiento</td>
-                                <td>Débito</td>
-                                <td>Crédito</td>
-                                <td>Saldo</td>
+                                <td>Total a pagar</td>
+                                <td>Monto abonado</td>
+                                <td>Saldo pendiente</td>
                                 <td>Fecha de pago</td>
                                 <td>Observación</td>
                                 <td></td>

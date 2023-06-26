@@ -15,6 +15,10 @@ if (isset($_SESSION['rol'])) {
   }
 }
 
+if (isset($_GET['el'])) {
+  $el = $_GET['el'];
+};
+
 
 ?>
 
@@ -64,17 +68,34 @@ if (isset($_SESSION['rol'])) {
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password"  placeholder="Ingrese su contraseña" required>
+                <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
               </div>
-              <div class="button input-box">
-                <input type="submit" value="Iniciar">
-              </div>
+              <?php
+              if (isset($el)) {
+              ?>
+                <p style="color: black; text-align:center"> Usuario o contraseña incorrectos!</p>
+              <?php
+              }
+              ?>
             </div>
-          </form>
+            <div class="button input-box">
+              <input type="submit" value="Iniciar">
+            </div>
         </div>
+        </form>
       </div>
     </div>
+  </div>
   </div>
 </body>
 
 </html>
+
+<script>
+  if (window.history.replaceState) {
+    var cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    window.history.replaceState({
+      path: cleanUrl
+    }, '', cleanUrl);
+  }
+</script>
