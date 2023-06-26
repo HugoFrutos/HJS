@@ -30,10 +30,10 @@ require 'header.php';
                             require_once '../clases/Paciente.php';
                             require_once '../clases/Conexion.php';
                             $obj1 = new Paciente();
-                            $paciente = $obj1->mostrar();
+                            $paciente = $obj1->mostrarParaForm();
                             while ($pro = mysqli_fetch_row($paciente)) {
                             ?>
-                                <option value="<?php echo $pro[0] ?>"><?php echo $pro[2] ?></option>
+                                <option value="<?php echo $pro[0] ?>"><?php echo $pro[2] ?><?php echo ' '?><?php echo $pro[3] ?></option>
                             <?php
                             }
 
@@ -95,10 +95,10 @@ require 'header.php';
                             require_once '../clases/Paciente.php';
                             require_once '../clases/Conexion.php';
                             $obj1 = new Paciente();
-                            $paciente = $obj1->mostrar();
+                            $paciente = $obj1->mostrarParaForm();
                             while ($pro = mysqli_fetch_row($paciente)) {
                             ?>
-                                <option value="<?php echo $pro[0] ?>"><?php echo $pro[2] ?></option>
+                                <option value="<?php echo $pro[0] ?>"><?php echo $pro[2] ?><?php echo ' '?><?php echo $pro[3] ?></option>
                             <?php
                             }
                             ?>

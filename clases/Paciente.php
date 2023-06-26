@@ -53,6 +53,15 @@ class Paciente
         return $result;
     }
 
+    public function mostrarParaForm()
+    {
+        $c = new Conexion();
+        $conexion = $c->conectar();
+        $sql = "SELECT * from pacientes where estado = 'activo' order by 3 asc";
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
 
     public function traer($id)
     {
