@@ -68,6 +68,7 @@ require 'header.php';
                                 <input type="text" class="form-control" id="txtdiente" name="txtdiente">
                                 <label>Observación</label>
                                 <input type="text" class="form-control" id="txtObs" name="txtObs">
+
                             </form>
                         </div>
 
@@ -134,10 +135,10 @@ require 'header.php';
                                 <input type="date" class="form-control" id="txtfechaInicioe" name="txtfechaInicioe">
                                 <label>Próxima consulta</label>
                                 <input type="date" class="form-control" id="txtProxConse" name="txtProxConse">
-                                <label>Observacion</label>
-                                <input type="text" class="form-control" id="txtObse" name="txtObse">
                                 <label>Dientes</label>
                                 <input type="text" class="form-control" id="txtdientee" name="txtdientee">
+                                <label>Observacion</label>
+                                <input type="text" class="form-control" id="txtObse" name="txtObse">
                             </form>
                         </div>
 
@@ -186,8 +187,8 @@ require 'header.php';
                                     <td>Paciente</td>
                                     <td>Inicio</td>
                                     <td>Próxima consulta</td>
-                                    <td>Observacion</td>
                                     <td>Dientes</td>
+                                    <td>Observacion</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -250,10 +251,10 @@ require 'header.php';
                     "data": "fechaProxConsulta"
                 },
                 {
-                    "data": "observacionTratamiento"
+                    "data": "dientes"
                 },
                 {
-                    "data": "dientes"
+                    "data": "observacionTratamiento"
                 },
                 {
                     sTitle: "Eliminar",
@@ -299,11 +300,11 @@ require 'header.php';
                     }).done(function(msg) {
                         var dato = JSON.parse(msg);
                         $('#txttipotratamientoe').val(dato['tiposTratamiento_idTipoTratamiento']);
-                        $('#txtpacientee').val(dato['tratamientos_idPaciente']);
+                        $('#txtpacientee').val(dato['pacientes_idPaciente']);
                         $('#txtfechaInicioe').val(dato['fechaInicio']);
                         $('#txtProxConse').val(dato['fechaProxConsulta']);
-                        $('#txtObse').val(dato['observacionTratamiento']);
                         $('#txtdientee').val(dato['dientes']);
+                        $('#txtObse').val(dato['observacionTratamiento']);
 
                         $('#btneditar').unbind().click(function() {
 
@@ -316,8 +317,8 @@ require 'header.php';
                                 paciente = $("#txtpacientee").val();
                                 fechaInicio = $("#txtfechaInicioe").val();
                                 proxCon = $("#txtProxConse").val();
-                                obse = $("#txtObse").val();
                                 diente = $("#txtdientee").val();
+                                obse = $("#txtObse").val();
 
                                 oka = {
                                     "txttipotratamientoe": tipotratamiento,
@@ -325,8 +326,8 @@ require 'header.php';
                                     "txtpacientee": paciente,
                                     "txtfechaInicioe": fechaInicio,
                                     "txtProxConse": proxCon,
-                                    "txtObse": obse,
                                     "txtdientee": diente,
+                                    "txtObse": obse,
                                 };
                                 //alert(oka);
                                 //alert(JSON.stringify(oka));

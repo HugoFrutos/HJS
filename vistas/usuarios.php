@@ -271,7 +271,7 @@ require 'footer.php';
                     }).done(function(msg) {
                         var dato = JSON.parse(msg);
                         $('#txtusernamee').val(dato['username']);
-                        $('#txtpassworde').val(dato['password']);
+                        $('#txtpassworde').val('**************');
                         $('#txtnombreUsuarioe').val(dato['nombreUsuario']);
                         $('#txtapellidoUsuarioe').val(dato['apellidoUsuario']);
                         $('#txttipoUsuarioe').val(dato['tiposUsuario_idTipoUsuario']);

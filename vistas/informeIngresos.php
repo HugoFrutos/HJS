@@ -131,9 +131,9 @@ require 'header.php';
                                         <td>#</td>
                                         <td>Paciente</td>
                                         <td>Tratamiento</td>
-                                        <td>Débito</td>
-                                        <td>Crédito</td>
-                                        <td>Saldo</td>
+                                        <td>Total a pagar</td>
+                                        <td>Monto abonado</td>
+                                        <td>Saldo pendiente</td>
                                         <td>Fecha de pago</td>
                                         <td>Observación</td>
                                     </tr>

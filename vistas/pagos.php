@@ -87,6 +87,7 @@ require 'header.php';
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-lg-12">
                     <form id="frmeditar">
                         <label>Paciente</label>
                         <select id="txtpacientee" name="txtpacientee" class="form-control">
@@ -125,6 +126,7 @@ require 'header.php';
                         <label>Observación</label>
                         <input type="text" class="form-control" id="txtobservacione" name="txtobservacione">
                     </form>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

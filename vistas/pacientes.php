@@ -71,7 +71,7 @@ require 'header.php';
                         <label>Número de cédula (*)</label>
                         <input type="number" class="form-control" id="txtcedulae" name="txtcedulae">
                         <label>Número de teléfono (*)</label>
-                        <input type="text" class="form-control" id="txttelefonoe" name="txttelefonoe">
+                        <input type="number" class="form-control" id="txttelefonoe" name="txttelefonoe">
                 </form>
             </div>
         </div>

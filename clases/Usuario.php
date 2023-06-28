@@ -98,11 +98,13 @@ class Usuario
 	{
 		$c = new Conexion();
 		$conexion = $c->conectar();
-		$sql = "SELECT us.idUsuario, us.username, us.password, us.nombreUsuario, us.apellidoUsuario, 
-		ti.tipoUsuario as idTipoUsuario
-		from usuarios us
-		INNER JOIN tiposusuario ti ON us.tiposUsuario_idTipoUsuario  = ti.idTipoUsuario 
-		where us.estado = 'activo'";
+		$sql = "SELECT us.idUsuario, us.username, 
+		REPLACE(us.password, us.password, '**************') AS password, 
+		us.nombreUsuario, us.apellidoUsuario, 
+		ti.tipoUsuario AS idTipoUsuario
+		FROM usuarios us
+		INNER JOIN tiposusuario ti ON us.tiposUsuario_idTipoUsuario = ti.idTipoUsuario 
+		WHERE us.estado = 'activo'";
 		$result = mysqli_query($conexion, $sql);
 		return $result;
 	}
@@ -120,7 +122,7 @@ class Usuario
 			"password" => html_entity_decode($ver[2]),
 			"nombreUsuario" => html_entity_decode($ver[3]),
 			"apellidoUsuario" => html_entity_decode($ver[4]),
-			"tiposUsuario_idTipoUsuario" => html_entity_decode($ver[5]),
+			"tiposUsuario_idTipoUsuario" => html_entity_decode($ver[6]),
 		);
 		return $datos;
 	}
