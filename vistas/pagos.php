@@ -58,7 +58,8 @@ require 'header.php';
                         <input type="number" class="form-control" id="txtdebito" name="txtdebito">
                         <label>Monto abonado</label>
                         <input type="number" class="form-control" id="txtcredito" name="txtcredito">
-
+                        <label>Fecha de pago</label>
+                        <input type="date" class="form-control" id="txtfechapago" name="txtfechapago">
                         <label>Observación</label>
                         <input type="text" class="form-control" id="txtobservacion" name="txtobservacion">
                 </form>
@@ -123,6 +124,8 @@ require 'header.php';
                         <input type="number" class="form-control" id="txtdebitoe" name="txtdebitoe">
                         <label>Monto abonado</label>
                         <input type="number" class="form-control" id="txtcreditoe" name="txtcreditoe">
+                        <label>Fecha de pago</label>
+                        <input type="date" class="form-control" id="txtfechae" name="txtfechae">
                         <label>Observación</label>
                         <input type="text" class="form-control" id="txtobservacione" name="txtobservacione">
                     </form>
@@ -292,6 +295,7 @@ require 'footer.php';
                         $('#txttratamientoe').val(dato['tiposTratamiento_idTipoTratamiento']);
                         $('#txtdebitoe').val(dato['debito']);
                         $('#txtcreditoe').val(dato['credito']);
+                        $('#txtfechae').val(dato['fechaPago']);
                         $('#txtobservacione').val(dato['observacionPago']);
 
                         $('#btneditar').unbind().click(function() {
@@ -303,6 +307,7 @@ require 'footer.php';
                                 tiposTratamiento_idTipoTratamiento = $("#txttratamientoe").val();
                                 debito = $("#txtdebitoe").val();
                                 credito = $("#txtcreditoe").val();
+                                fechaPago = $("#txtfechae").val();
                                 observacionPago = $("#txtobservacione").val();
                                 oka = {
                                     "txtpacientee": pacientes_idPaciente,
@@ -310,6 +315,7 @@ require 'footer.php';
                                     "txttratamientoe": tiposTratamiento_idTipoTratamiento,
                                     "txtdebitoe": debito,
                                     "txtcreditoe": credito,
+                                    "txtfechae" : fechaPago,
                                     "txtobservacione": observacionPago,
                                 };
                                 //alert(oka);

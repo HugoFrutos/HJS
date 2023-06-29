@@ -1,195 +1,136 @@
 <?php
+
 session_start();
 
 if (!isset($_SESSION['rol'])) {
-
     header('location: ../index.php');
 }
 require 'header.php';
+require("../clases/Conexion.php");
+$c = new Conexion();
+$conexion = $c->conectar();
+
 ?>
+<!DOCTYPE html>
+<html>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
-    <script src="../helpers/imprimirIngresos.js" defer> </script>
+<style>
+    h1{
+        font-size: 28px;
+    }
+    .subt{
+        font-size: 23px;
+    }
+    .ancho{
+        width: 91.2%;
+    }
 
+</style>
 
-    <!-- Modal -->
+<head>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel=stylesheet href="../../assets/style1.css">
 
-    <div class="content-page">
+    <script defer src="../../assets/js/bootstrap.min.js"></script>
+    <title>Informe de Ingresos</title>
+</head>
 
-        <!-- Start content -->
-        <div class="content">
+<body>
+<div class="content-page">
 
-            <div class="container-fluid">
-
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="breadcrumb-holder">
-                            <h1 class="main-title float-left">Generar informe de ingresos</h1>
-                            <div class="clearfix">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end row -->
-                <form action="informeIngresos.php" method="post">
-                    <label>Seleccione el rango de tiempo</label>
-                    <div class="row">
-                        <div class="col-lg-auto"></div>
-                        <div class="col-lg-auto">
-                            <input type="date" class="form-control" name="txtfecha1" required />
-                        </div>
-                        <div class="col-lg-auto">
-                            <input type="date" class="form-control" name="txtfecha2" required />
-                        </div>
-                        <div class="col-lg-auto">
-                            <input type="submit" value="Generar informe" class="btn btn-primary">
-                        </div>
-
-                        <script>
-                            // Obtener los campos de fecha
-                            var fechaUno = document.getElementByName("txtfecha1")[0];
-                            var fechaDos = document.getElementByName("txtfecha2")[0];
-
-                            // Agregar evento onchange a ambos campos
-                            fechaUno.onchange = function() {
-                                mostrarPDFDiv();
-                            };
-                            fechaDos.onchange = function() {
-                                mostrarPDFDiv();
-                            };
-
-                            // Función para mostrar el div con el botón PDF
-                            function mostrarPDFDiv() {
-                                // Obtener el div correspondiente
-                                var pdfDiv = document.getElementById("pdf-div");
-
-                                // Verificar si ambos campos de fecha tienen valor
-                                if (fechaUno.value && fechaDos.value) {
-                                    // Mostrar el div
-                                    pdfDiv.style.display = "block";
-                                } else {
-                                    // Ocultar el div
-                                    pdfDiv.style.display = "none";
-                                }
-                            }
-                        </script>
-
-
-
-
-                        <div class="col-lg-auto"></div>
-                    </div>
-                    <hr>
-                </form>
-                <div id="iIngresos" class="row">
-                    <!-- Button trigger modal -->
-
-
-
-
-                    <div class="col-lg-12">
-
-
-                        <?php
-                        if (isset($_POST['txtfecha1']) and isset($_POST['txtfecha2'])) {
-                            require_once '../clases/Conexion.php';
-                            require_once '../clases/Pago.php';
-                            $obj = new Pago();
-                            $result = $obj->generarInforme($_POST['txtfecha1'], $_POST['txtfecha2']);
-                            $total = $obj->total($_POST['txtfecha1'], $_POST['txtfecha2']);
-                            $total2 = mysqli_fetch_row($total);
-                            $fecha1 = $_POST['txtfecha1'];
-                            $fecha2 = $_POST['txtfecha2'];
-
-                            // Convertir la fecha1 en un objeto de fecha y formatear en el nuevo formato
-                            $fecha1_nuevo_formato = date("d-m-Y", strtotime($fecha1));
-
-                            // Convertir la fecha2 en un objeto de fecha y formatear en el nuevo formato
-                            $fecha2_nuevo_formato = date("d-m-Y", strtotime($fecha2));
-                        ?>
-
-                            <table class="table table-bordered table-hover table-condensed">
-                                <div class="row d-flex align-items-center justify-content-center">
-                                    <div class="col-lg-auto">
-                                        <label>Informe de gastos desde <?php echo $fecha1_nuevo_formato ?> hasta <?php echo $fecha2_nuevo_formato ?></label>
-                                    </div>
-                                    <div class="col-lg-auto ml-auto" id="pdf-div">
-                                        <button id="generate-pdf" class="btn btn-primary">Generar PDF</button>
-                                    </div>
-                                </div>
-                                <thead>
-                                    <td>Total de ingresos: <?php echo $total2[0] ?></td>
-
-                                </thead>
-
-                            </table>
-                            <table id="ingresos" class="table table-bordered table-hover table-condensed">
-                                <thead>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Paciente</td>
-                                        <td>Tratamiento</td>
-                                        <td>Total a pagar</td>
-                                        <td>Monto abonado</td>
-                                        <td>Saldo pendiente</td>
-                                        <td>Fecha de pago</td>
-                                        <td>Observación</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    while ($fila = mysqli_fetch_row($result)) {
-                                    ?>
-
-                                        <tr>
-                                            <td><?php echo $fila[0] ?></td>
-                                            <td><?php echo $fila[1] ?></td>
-                                            <td><?php echo $fila[2] ?></td>
-                                            <td><?php echo $fila[3] ?></td>
-                                            <td><?php echo $fila[4] ?></td>
-                                            <td><?php echo $fila[5] ?></td>
-                                            <td><?php echo $fila[6] ?></td>
-                                            <td><?php echo $fila[7] ?></td>
-
-                                        </tr>
-                                <?php
-                                    }
-                                } else {
-                                } ?>
-
-                                </tbody>
-                            </table>
-                    </div>
-
-                </div>
-
-
-
-            </div>
-            <!-- END container-fluid -->
-
-        </div>
-        <!-- END content -->
-
+    <div class="mt-5 ml-5 text-dark" style="width: 100%;">
+        <h1 class="ms-3 text-dark">Informe de ingresos</h1>
+        <hr />
     </div>
-    <!-- END content-page -->
+    
+    <form action="#" method="post">
+
+        <div class="w-75 ml-5 mt-3">
+            <h4 class="subt text-dark">Seleccione el rango de tiempo</h4>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Desde: </span>
+                <input type="date" class="form-control" name="txtfecha1">
+                <span class="input-group-text">Hasta</span>
+                <input type="date" class="form-control" name="txtfecha2">
+                <input type="submit" value="Generar informe" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+
+    <div class="ancho mt-5 mx-auto text-dark">
+
+        <?php
+        if (isset($_POST["txtfecha1"]) && isset($_POST["txtfecha2"])) {
+            $fecha1 = $_POST["txtfecha1"];
+            $fecha2 = $_POST["txtfecha2"];
+
+        ?>
 
 
+
+            <div class="mx-auto mt-2 text-dark">
+                <a class="btn btn-primary mb-3" href="pdfIngresos.php?f1=<?php echo $fecha1 ?>&f2=<?php echo $fecha2 ?>" target="_blank">Generar PDF <i class='bx bx-download'></i> </a>
+                <h3 class="text-dark">Informe de ingresos</h3>
+            </div>
+            <table id="egresos" class="table table-secondary table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Paciente</th>
+                        <th class="text-center">Tratamiento</th>
+                        <th class="text-center">Total a pagar</th>
+                        <th class="text-center">Monto abonado</th>
+                        <th class="text-center">Saldo pendiente</th>
+                        <th class="text-center">Fecha de pago</th>
+                        <th class="text-center">Observación</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <?php
+
+                    $sql = $conexion->query("SELECT pg.idPago, CONCAT(pa.nombrePaciente,' ',pa.apellidoPaciente) as idPaciente, tt.tipoTratamiento as tipoTratamiento,
+                    REPLACE(FORMAT(pg.debito, 0), ',', '.') AS debito, REPLACE(FORMAT(pg.credito, 0), ',', '.') 
+                    AS credito, REPLACE(FORMAT( (pg.debito - pg.credito), 0), ',', '.') as saldo, 
+                    DATE_FORMAT(pg.fechaPago, '%d-%m-%Y') as fechaPago, pg.observacionPago 
+                    FROM pagos pg 
+                    INNER JOIN pacientes pa ON pg.pacientes_idPaciente = pa.idPaciente 
+                    INNER JOIN tipostratamiento tt ON pg.tiposTratamiento_idTipoTratamiento = tt.idTipoTratamiento
+                    WHERE pg.fechaPago BETWEEN '$fecha1' AND '$fecha2' and pg.estado = 'activo' ORDER BY fechaPago ASC; ");
+
+
+                    while ($resultado = mysqli_fetch_row($sql)) {
+                    ?>
+
+                        <tr>
+                            <td><?php echo $resultado[0] ?></td>
+                            <td><?php echo $resultado[1] ?></td>
+                            <td><?php echo $resultado[2] ?></td>
+                            <td><?php echo $resultado[3] ?></td>
+                            <td><?php echo $resultado[4] ?></td>
+                            <td><?php echo $resultado[5] ?></td>
+                            <td><?php echo $resultado[6] ?></td>
+                            <td><?php echo $resultado[7] ?></td>
+                        </tr>
+
+                    <?php
+
+                    }
+
+                    ?>
+                </tbody>
+            </table>
+        <?php
+        }
+        ?>
+    </div>
+</div>
+</body>
 
 <?php
-    require 'footer.php';
+require 'footer.php';
 ?>
 
-<script>
-    $(document).ready(function() {
-        $('#ingresos').dataTable({
-            "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
-            },
-            "ordering": true,
-            "info": false
-        });
-    });
-</script>
+
+</html>

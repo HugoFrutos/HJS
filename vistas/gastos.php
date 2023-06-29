@@ -310,7 +310,7 @@ $(document).on('click', '.accionesTabla', function() {
             break;
         case "Eliminar":
 
-                alertify.confirm('Gasot', '¿Esta seguro q   ue desea eliminar este gasto?', function() {
+                alertify.confirm('Gastos', '¿Esta seguro que desea eliminar este gasto?', function() {
                     $.ajax({
                         type: "POST",
                         url: "../procesos/gastos/eliminar.php",
@@ -345,7 +345,7 @@ $(document).on('click', '.accionesTabla', function() {
                     
                     if(r==1)
                         {
-                            alertify.success("Gasto registrado correcamente");
+                            alertify.success("Gasto registrado correctamente");
                             table.ajax.reload();
                         }
                     else if(r==0)

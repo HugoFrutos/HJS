@@ -48,10 +48,12 @@ class Gasto
     {
         $c = new Conexion();
         $conexion = $c->conectar();
-        $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto, ga.montoGasto, DATE_FORMAT(ga.fechaGasto, '%d-%m-%Y') as fechaGasto, ga.observacionGasto
-                    FROM gastos ga
-                    INNER JOIN tiposgasto ti ON ga.tiposGasto_idTipoGasto = ti.idTipoGasto
-                    where ga.estado = 'activo' ";
+        $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto,  
+        REPLACE(FORMAT(ga.montoGasto, 0), ',', '.') as montoGasto, 
+        DATE_FORMAT(ga.fechaGasto, '%d-%m-%Y') as fechaGasto, ga.observacionGasto
+        FROM gastos ga
+        INNER JOIN tiposgasto ti ON ga.tiposGasto_idTipoGasto = ti.idTipoGasto
+        where ga.estado = 'activo' ";
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
@@ -72,31 +74,5 @@ class Gasto
             "tiposGasto_idTipoGasto" => html_entity_decode($ver[4]),
         );
         return $datos;
-    }
-
-
-    public function generarInforme($f1,$f2)
-    {
-            $c = new Conexion();
-			$conexion = $c->conectar();
-            $sql = "SELECT ga.idGasto, ti.tipoGasto as idTipoGasto, ga.montoGasto, DATE_FORMAT(ga.fechaGasto, '%d-%m-%Y') as fechaGasto, ga.observacionGasto
-                    FROM gastos ga
-                    INNER JOIN tiposgasto ti ON ga.tiposGasto_idTipoGasto = ti.idTipoGasto 
-                    WHERE ga.fechaGasto BETWEEN '$f1' AND '$f2' and ga.estado = 'activo'";
-            $result= mysqli_query($conexion,$sql);
-
-              return $result ;
-    }
-
-    public function total($f1,$f2)
-    {
-            $c = new Conexion();
-			$conexion = $c->conectar();
-            $sql = "SELECT SUM(ga.montoGasto)
-                    FROM gastos ga
-                    WHERE ga.fechaGasto BETWEEN '$f1' AND '$f2' and ga.estado = 'activo'";
-            $result= mysqli_query($conexion,$sql);
-
-              return $result ;
     }
 }
