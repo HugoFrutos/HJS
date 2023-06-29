@@ -21,7 +21,7 @@ $conexion = $c->conectar();
     <link rel=stylesheet href="../../assets/style1.css">
 
     <script defer src="../../assets/css/bootstrap.min.css"></script>
-    <title>Informe</title>
+    <title>Informe de Ingresos</title>
     <style>
         * {
             font-family: Arial, Helvetica, sans-serif;
@@ -93,7 +93,7 @@ $conexion = $c->conectar();
                 $sql = $conexion->query("SELECT pg.idPago, CONCAT(pa.nombrePaciente,' ',pa.apellidoPaciente) as idPaciente, tt.tipoTratamiento as tipoTratamiento,
                     pg.debito AS debito, pg.credito 
                     AS credito, (pg.debito - pg.credito) as saldo, 
-                    DATE_FORMAT(pg.fechaPago, '%d-%m-%Y %H:%i:%s') as fechaPago, pg.observacionPago 
+                    DATE_FORMAT(pg.fechaPago, '%d-%m-%Y') as fechaPago, pg.observacionPago 
                     FROM pagos pg 
                     INNER JOIN pacientes pa ON pg.pacientes_idPaciente = pa.idPaciente 
                     INNER JOIN tipostratamiento tt ON pg.tiposTratamiento_idTipoTratamiento = tt.idTipoTratamiento
