@@ -1,5 +1,3 @@
-<link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-
 <?php
 session_start();
 
@@ -10,7 +8,7 @@ if (!isset($_SESSION['rol'])) {
 require 'header.php';
 ?>
 
-
+<link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Modal ar -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

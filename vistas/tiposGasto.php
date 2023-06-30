@@ -1,5 +1,3 @@
-		        		<!-- BEGIN CSS for this page -->
-                        <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
 <?php
 session_start();
 
@@ -9,6 +7,9 @@ if (!isset($_SESSION['rol'])) {
 }
 require 'header.php';
 ?>
+
+<!-- BEGIN CSS for this page -->
+<link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
 
 
 
